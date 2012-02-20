@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Items(models.Model):
-    item_type = models.ForeignKey('ItemTypes')
+    item_type = models.ForeignKey(ItemTypes)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length = 100)
     due_date = models.DateField(auto_now_add = True)
