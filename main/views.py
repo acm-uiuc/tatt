@@ -1,9 +1,8 @@
-from main.models import Person
+from django.template import Context
+from django.shortcuts import render_to_response
 
-def some_view(request):
-    get = request.GET
-    form = PersonForm(request.GET)
-    cleaned_data = form.cleaned_data
-    cleaned_data['name']
-    context = Context({"name" : cleaned_data['name']})
-    return render_to_response(context, 'index.html')
+def index(request):
+    c = Context({
+            'page_title' : 'index',
+        })
+    return render_to_response('index.html', c)
