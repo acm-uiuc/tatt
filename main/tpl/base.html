@@ -1,4 +1,4 @@
-{*
+{% comment %}
 The MIT License
 
 Copyright (c) 2011 Eric Parsons, Drew Cross
@@ -23,13 +23,13 @@ THE SOFTWARE.
 
 Smarty is licensed under the GNU LESSER GENERAL PUBLIC LICENSE
 http://www.gnu.org/licenses/lgpl-3.0.txt
-*}
+{% endcomment %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>{{page_title}}</title>
-        <link href="/_style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <link href="/_style/print.css" media="print" rel="stylesheet" type="text/css" />
+        <link href="{{ STATIC_URL }}_style/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <link href="{{ STATIC_URL }}_style/print.css" media="print" rel="stylesheet" type="text/css" />
         <!--[if IE]>
             <link href="/_style/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <![endif]-->
@@ -43,7 +43,7 @@ http://www.gnu.org/licenses/lgpl-3.0.txt
     <body>
         <section id="container">
             <header id="header">
-                <img src="/_media/logo_default.png" width="490" height="107" class="site_logo" />
+            <img src="{{ STATIC_URL }}/images/logo_default.png" width="490" height="107" class="site_logo" />
                 <div class="login">
                     {% if user.is_authenticated %}
                     Welcome, {{ user.username}} (<a href="/login.php?action=logout">Logout</a>)
