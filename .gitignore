@@ -3,3 +3,5 @@ settings.py
 *.pyc
 collected_static/*
 main/tpl/templates/*
+local_settings
+static/*
