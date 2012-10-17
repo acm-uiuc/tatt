@@ -1,0 +1,161 @@
+    /* Welcome to Compass.
+     * In this file you should write your main styles. (or centralize your imports)
+     * Import this file using the following HTML or equivalent:
+     * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "blueprint/reset";
+@import "blueprint/typography";
+@import "blueprint/form";
+@import "compass/utilities";
+
+@include blueprint-global-reset;
+@include blueprint-typography;
+@include blueprint-form;
+
+html, body {
+    height: 100%;
+}
+
+#container {
+    min-height: 100%;
+}
+
+/*Opera Fix*/
+body:before {
+    content:"";
+    height:100%;
+    float:left;
+    width:0;
+    margin-top:-32767px;
+}
+
+body {
+    background-color: #bbb;
+}
+
+#container {
+    width: 960px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+#main {
+    overflow:auto;
+    padding-bottom: 31px;
+    /* must be same height as the footer */
+    min-height: 100%;
+}
+
+#header {
+    height: 127px;
+    position: relative;
+    border-bottom: 1px solid black;
+
+    .site_logo {
+        float: left;
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+
+    .login {
+        @include blueprint-form-sizes(100px);
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        text-align: right;
+    }
+}
+
+#contentContainer {
+    background-color: white;
+    height: 100%;
+}
+
+#horizontal_nav {
+    @include horizontal-list;
+    ul {
+        padding-top: 5px;
+        width: 60%;
+        float: left;
+        height: 8px;
+    }
+    width: 940px;
+    //margin-left: auto;
+    //margin-right: auto;
+    padding: 5px 10px;
+    background-color: #aba;
+    #quick_search {
+        @include blueprint-form-sizes(130px);
+        float: right;
+        input {
+            margin: 2px 0px;
+            height: 12px;
+        }
+        .search_submit {
+            height: 25px;
+        }
+    }
+}
+
+#side_nav {
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+    width: 140px;
+    min-height: 100%;
+
+    li {
+        list-style-type: none;
+    }
+}
+
+#content {
+    float: right;
+    padding: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 784px;
+    min-height: 200px;
+
+    border-left: 1px solid black;
+
+    h1 {
+        display: block;
+        font-size: 2em;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+}
+
+.table_items td {
+    max-width: 200px;
+}
+
+#item_details {
+    float: left;
+    width: 80%;
+}
+
+#item_qr {
+    float: right;
+}
+
+#footer {
+    clear: both;
+    height: 30px;
+    border-top: 1px solid black;
+    width: 960px;
+    position: relative;
+    margin-top: -31px; /* negative value of footer height */
+    margin-left: auto;
+    margin-right: auto;
+
+    .copyright {
+        line-height: 30px;
+        font-size: 1em;
+        padding: 0em 1em;
+    }
+}
