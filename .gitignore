@@ -1,7 +1,5 @@
-settings.py
-*__init__.py
 *.pyc
 collected_static/*
-main/tpl/templates/*
-local_settings
+local_settings.py
 static/*
+tatt_db
