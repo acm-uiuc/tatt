@@ -1,7 +1,0 @@
-settings.py
-*__init__.py
-*.pyc
-collected_static/*
-main/tpl/templates/*
-local_settings
-static/*

@@ -1,0 +1,5 @@
+settings.py
+*.pyc
+collected_static/*
+local_settings.py
+static/*
