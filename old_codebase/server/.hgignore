@@ -1,0 +1,8 @@
+/*.swp
+/*.swo
+HEAD/compass/.sass-cache/*
+HEAD/includes/php/tatt-config/dbconfig.php
+HEAD/includes/php/tatt/smarty/dev/template_c/(?!.empty)
+HEAD/www/admin/.htpasswd
+HEAD/www/phpmyadmin
+HEAD/www/qrcodes/(?!.empty)
