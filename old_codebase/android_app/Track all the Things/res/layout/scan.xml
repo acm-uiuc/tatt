@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:orientation="vertical"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <TextView android:id="@+id/scaniteminfo"
+  	android:layout_width="match_parent"
+  	android:layout_height="wrap_content"
+  	android:text="No item scanned... Please scan another item."
+  />
+  <Button android:id="@+id/checkoutitem"
+  	android:layout_width="match_parent"
+  	android:layout_height="wrap_content"
+  	android:text="Checkout Item"
+  />
+  <Button android:id="@+id/returnitem"
+  	android:layout_width="match_parent"
+  	android:layout_height="wrap_content"
+  	android:text="Return Item"
+  />
+  <Button android:id="@+id/scanagain"
+  	android:layout_width="match_parent"
+  	android:layout_height="wrap_content"
+  	android:text="Scan Another Item"
+  />
+  <Button android:id="@+id/backFromScan"
+  	android:layout_width="match_parent"
+  	android:layout_height="wrap_content"
+  	android:text="Back to Menu"
+  />
+</LinearLayout>
