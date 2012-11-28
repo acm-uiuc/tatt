@@ -33,7 +33,7 @@
         <![endif]-->
         <div class="container-fluid" style="background-color:#222244;">
             <div class="content">
-	            <div class="span6" style="float: right"> <!-- style="background-color:#EFEFEF;"> -->
+	            <div class="span6" style="float: right; position:relative; top:10px"> <!-- style="background-color:#EFEFEF;"> -->
 	                <form class="form-inline">
 
                         <div class="input-prepend">
@@ -69,22 +69,26 @@
 			-->
             <div class="span12 offset9" style="min-height: 10em; position:absolute; top:50%" >
 				<div>
+					<a href="register.html" role="button" class="btn btn-success btn-large">Register</a> 
+					<!---	MODAL
 					<a href="#registerModal" role="button" data-target="#registerModal" data-toggle="modal" class="btn btn-success btn-large">Register</a>
-            
+            		
 					<div class="modal hide fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
 		                <div class="modal-header">
 		                </div>
 		                <div class="modal-body">
 		                    <form action="/register/" method="post">
 		                        {{form.as_p}}
+							</form>
 		                </div>
 		                
 		                <div class="modal-footer">
-		                    <input type="submit" value="Submit" />
+		                    <input class="btn" type="submit" value="Submit" />
 		                    </form>
 		                    <button class="btn" data-dismiss="modal" data-target="#registerModal" aria-hidden="true">Close</button>
 		                </div>
 		            </div>
+					-->
 				</div>
             </div>
         </div>

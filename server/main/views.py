@@ -5,6 +5,10 @@ from django.template import RequestContext
 
 def index(request):
     c = RequestContext(request, {
-            'page_title' : 'index',
-        })
+           'page_title' : 'index',
+       })
     return render_to_response('index.html', c)
+
+def register(request):
+	c = RequestContext(request, {'page_title' : 'temporary', })
+	return render_to_response('register.html', c)

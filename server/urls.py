@@ -9,9 +9,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'tatt.views.home', name='home'),
     # url(r'^tatt/', include('tatt.foo.urls')),
     url(r'^index/', 'main.views.index'),
-    url(r'', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
-    url(r'/', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
-    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
+    #url(r'', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
+    #url(r'/', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
+    #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
