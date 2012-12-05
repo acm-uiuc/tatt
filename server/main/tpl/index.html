@@ -31,30 +31,60 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
+<<<<<<< HEAD
         <div class="container-fluid" style="background-color:#222244;">
             <div class="content">
 	            <div class="span6" style="float: right; position:relative; top:10px"> <!-- style="background-color:#EFEFEF;"> -->
 	                <form class="form-inline">
+=======
+        <div class="container-fluid" style="background-color:#EFEFEF">
+            <div class="row-fluid">
+              
+		            <div class="span6" style="float: right;">
+		                <form class="form-inline">
+>>>>>>> parent of f906c6b... Moved the register button down
 
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span>
-                            <input type="text" placeholder="Username" id="inputIcon"/>
-                        </div>
+		                            <div class="input-prepend">
+		                                <span class="add-on"><i class="icon-user"></i></span>
+		                                <input type="text" placeholder="Username" id="inputIcon"/>
+		                            </div>
 
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span>
-                            <input type="text" placeholder="Password" id="passIcon"/>
-                        </div>
+		                            <div class="input-prepend">
+		                                <span class="add-on"><i class="icon-lock"></i></span>
+		                                <input type="text" placeholder="Password" id="passIcon"/>
+		                            </div>
 
-                        <button class="button btn-primary">Submit</button>
+		                            <button class="button btn-primary">Submit</button>
 
-		            </form>
-		        </div>
+
+		                </form>
+		            </div>
+           
             </div>
-		</div>
-		<div class="container-fluid" style="min-height:300px">
-			<!--
-            <div class="span2">
+            <div class="row-fluid" style="background-color:#222244;">
+                <div class="span1 offset10">
+                    <!--<a href="#registerModal" role="button" data-toggle="modal" class="btn btn-success btn-large btn-block">Register</a>
+                    <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true" style="display: none;"> -->
+					<a href="#registerModal" role="button" data-target="#registerModal" data-toggle="modal" class="btn btn-success btn-large btn-block">Register</a>
+                
+					<div class="modal hide fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <form action="/register/" method="post">
+                                {{form.as_p}}
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <input type="submit" value="Submit" />
+                            </form>
+                            <button class="btn" data-dismiss="modal" data-target="#registerModal" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+				</div>
+            </div>
+            <div class="span3">
+
                 <div class="nav-list-inner">
                     <ul class="nav nav-list">
                         <li>Popular Items</li>
@@ -66,6 +96,7 @@
                     </ul>
                 </div>
             </div>
+<<<<<<< HEAD
 			-->
             <div class="span12 offset9" style="min-height: 10em; position:absolute; top:50%" >
 				<div>
@@ -90,6 +121,10 @@
 		            </div>
 					-->
 				</div>
+=======
+            <div class="span8">
+                <h1>Cool stuff goes here.</h1>
+>>>>>>> parent of f906c6b... Moved the register button down
             </div>
         </div>
     </body>
