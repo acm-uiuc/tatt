@@ -16,5 +16,9 @@ class ItemTypes(models.Model):
 
 class Attributes(models.Model):
     name = models.CharField(max_length=100)
-    value = models.CharField(max_length=100)
     item_type = models.ForeignKey(ItemTypes)
+
+class AttributeValues(models.Model):
+    item = models.ForeignKey(Items)
+    attribute = models.ForeignKey(Attributes)
+    value = models.CharField(max_length=100)

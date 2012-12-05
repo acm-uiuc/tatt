@@ -19,7 +19,7 @@
         </style>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	<!-- added -->
 
-		<script src="{{ STATIC_URL }}/bootstrap/js/bootstrap.js"></script>
+		<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
 
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/main.css">
@@ -65,22 +65,7 @@
                 <div class="span1 offset10">
                     <!--<a href="#registerModal" role="button" data-toggle="modal" class="btn btn-success btn-large btn-block">Register</a>
                     <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true" style="display: none;"> -->
-					<a href="#registerModal" role="button" data-target="#registerModal" data-toggle="modal" class="btn btn-success btn-large btn-block">Register</a>
-                
-					<div class="modal hide fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-                        <div class="modal-header">
-                        </div>
-                        <div class="modal-body">
-                            <form action="/register/" method="post">
-                                {{form.as_p}}
-                        </div>
-                        
-                        <div class="modal-footer">
-                            <input type="submit" value="Submit" />
-                            </form>
-                            <button class="btn" data-dismiss="modal" data-target="#registerModal" aria-hidden="true">Close</button>
-                        </div>
-                    </div>
+					<a href="/register/">Register</a>
 				</div>
             </div>
             <div class="span3">
