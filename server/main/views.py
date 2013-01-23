@@ -11,15 +11,15 @@ from main.models import *
 def index(request):
     user_form = UserCreationForm()
     c = RequestContext(request, {
-<<<<<<< HEAD
-           'page_title' : 'index',
-       })
-    return render_to_response('index.html', c)
-
-def register(request):
-	c = RequestContext(request, {'page_title' : 'temporary', })
-	return render_to_response('register.html', c)
-=======
+#<<<<<<< HEAD
+#           'page_title' : 'index',
+#       })
+#    return render_to_response('index.html', c)
+#
+#def register(request):
+#	c = RequestContext(request, {'page_title' : 'temporary', })
+#	return render_to_response('register.html', c)
+#=======
             'page_title' : 'index',
             'registration_form' :  user_form,
         })
@@ -58,4 +58,4 @@ def items(request):
     c = RequestContext(request, {
     })
     return render_to_response('items.html', c)
->>>>>>> d5b542e9f56b0b56c7e812a03b4fb26f04eef298
+#>>>>>>> d5b542e9f56b0b56c7e812a03b4fb26f04eef298
