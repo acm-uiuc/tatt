@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	<!-- added -->
+
+		<script src="{{ STATIC_URL }}/bootstrap/js/bootstrap.js"></script>
+
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/main.css">
+
+		<script src="{{ STATIC_URL }}bootstrap/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>	<!-- move back down -->	
+
+	</head>
+	<body>
+        <!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+<![endif]-->
+        <div class="container-fluid" style="background-color:#222244;">
+            <div class="content">
+				<div class="span6" style="float: right; position:relative; top:10px"> <!-- style="background-color:#EFEFEF;"> -->
+					<form class="form-inline">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-user"></i></span>
+                            <input type="text" placeholder="Username" id="inputIcon"/>
+                        </div>
+
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-lock"></i></span>
+                            <input type="text" placeholder="Password" id="passIcon"/>
+                        </div>
+
+                        <button class="button btn-primary">Submit</button>
+
+					</form>
+				</div>
+            </div>
+		</div>
+		<div class="container-fluid" style="min-height:300px">
+			<div class="span12 offset9" style="min-height: 10em; position:absolute; top:50%" >
+				<div>
+					<a href="register.html" role="button" class="btn btn-success btn-large">Register</a>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>
