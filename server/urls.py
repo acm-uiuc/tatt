@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
     url(r'^register/$', 'main.views.register'),
 
+	# User page
+	url(r'^userpage/$', 'main.views.userpage'),
+
     # Item view pages
     url(r'^items/$', 'main.views.items'),
     url(r'^item/(?P<item_id>\d+)/$', 'main.views.item_info'),
