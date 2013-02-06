@@ -1,5 +1,5 @@
 *.pyc
 collected_static/*
-local_settings.py
-static/*
+*local_settings.py
+server/static/*
 tatt_db
