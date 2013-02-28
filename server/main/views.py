@@ -42,15 +42,25 @@ def userpage(request):
         })
     return render_to_response('user_page.html', c)
 
+def items(request):
+
+    c = RequestContext(request, {})
+    return render_to_response('items.html', c)
+
 def item_info(request, item_id):
     try:
-        item =  Items.objects.get(pk=item_id);
+        item =  Items.objects.get(pk=item_id)
     except Items.DoesNotExist:
+        #TODO: print out an error message or something about the item not exhisting
         raise Http404
     return render_to_response('itemDetail.html', {'item' : item} )
 
-def items(request):
+def search(request, search_query):
+    #TODO: Search the database and return a list of items, put in to requestcontext
+    c = RequestContext(request, {'search_query' : search_query})
+    return render_to_response('search.html', c)
 
-    c = RequestContext(request, {
-    })
-    return render_to_response('items.html', c)
+def search_query(query_string):
+    #TODO: Search the database and return all items matching the query string as a list
+    item_lis = []
+    return item_lis
