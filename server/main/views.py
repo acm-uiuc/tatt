@@ -64,3 +64,7 @@ def search_query(query_string):
     #TODO: Search the database and return all items matching the query string as a list
     item_lis = []
     return item_lis
+
+def about(request):
+    c = RequestContext(request, {})
+    return render_to_response('about.html', c)
