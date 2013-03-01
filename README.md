@@ -6,7 +6,10 @@ parallels, hyperv, or vmware if you are not familiar with virtualization.
 
 Also, please fork the main repo on github if you haven't.  You will be pushing 
 changes to your own repo and submitting pull requests to the main acm repo when
-you have valid, working code.
+you have valid, working code.  Please keep your working code in your master
+branch and use other branches for adding new features, testing other developer's
+code and implementing bug fixes.  Check out [this guide for how to effectively
+branch and merge code in git](http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging).
 
 The following guide assumes you clone the project in your home directory and
 that you will create a python virtual environment in your home directory.
@@ -17,7 +20,7 @@ To install the project you will need to do the following.
 * sudo apt-get install python git python-pip
 * sudo pip install virtualenv
 * cd ~
-* git clone git@github.com:<YOUR GITHUB ID HERE>/tatt.git
+* git clone git@github.com:{YOUR GITHUB ID HERE}/tatt.git
 * virtualenv --no-site-packages tattenv
 * source tattenv/bin/activate
 * pip install -r tatt/dependencies.txt
@@ -36,7 +39,7 @@ the first time you run the project
 * python manage.py collectstatic
 * python manage.py runserver
 
-While the server is running, you can go to 127.0.0.1:8000 in yur browser to test
+While the server is running, you can go to 127.0.0.1:8000 in your browser to test
 it.  To stop the server, just press Ctrl-C.
 
 Whenever there are database schema changes you will need to re-run the
