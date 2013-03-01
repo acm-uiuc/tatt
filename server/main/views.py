@@ -54,3 +54,7 @@ def items(request):
     c = RequestContext(request, {
     })
     return render_to_response('items.html', c)
+
+def about(request):
+    c = RequestContext(request, {})
+    return render_to_response('about.html', c)
