@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'tatt.views.home', name='home'),
     # url(r'^tatt/', include('tatt.foo.urls')),
-    url(r'^index/$', 'main.views.index'),
+    url(r'^$', 'main.views.index'),
     url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
     url(r'^register/$', 'main.views.register'),
     url(r'^about/$', 'main.views.about'),
@@ -20,9 +20,12 @@ urlpatterns = patterns('',
     # Item view pages
     url(r'^items/$', 'main.views.items'),
     url(r'^item/(?P<item_id>\d+)/$', 'main.views.item_info'),
+    
+    # Search page
+    url(r'^search/(?P<search_query>[a-zA-Z]+)', 'main.views.search'),
 
-    url(r'^$', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
-    url(r'^/$', 'django.views.generic.simple.redirect_to', {'url': '/index/'}),
+    url(r'^inedex$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
+    url(r'^index/$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
