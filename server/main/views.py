@@ -42,9 +42,10 @@ def register(request, *args, **kwargs):
             user_form = user_form.cleaned_data
             print user_form
             new_user = User.objects.create_user(username=user_form['username'],
-                                                password=user_form['password'],
-                                                first_name=user_form['first_name'],
-                                                last_name=user_form['last_name'])
+                                                password=user_form['password'])
+            new_user.first_name = user_form['first_name']
+            new_user.last_name = user_form['last_name']
+
             new_user.save()
             print "new user created"
             # TODO: we should redirect to a login with a special header or something
