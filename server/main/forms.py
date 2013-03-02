@@ -23,7 +23,7 @@ class UserForm(forms.ModelForm):
         # If you pass FormHelper constructor a form instance
         # It builds a default layout with all its fields
         self.helper = FormHelper(self)
-        self.helper.form_method = 'POST'
+        self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit'))
 
     def clean(self):
@@ -50,7 +50,7 @@ class LoginForm(forms.Form):
         super(LoginForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
-        self.helper.form_method = 'POST'
+        self.helper.form_method = 'post'
 
         #self.helper.layout = Layout(
         #    Div('class="modal-body"',

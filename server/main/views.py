@@ -17,11 +17,11 @@ def index(request):
             if user.is_active:
                 login(request, user)
                 print "user logged in!" 
+                return HttpResponseRedirect('/items')
             else:
                 print "user not active"
         else:
             print "Incorrect username/password"
-        print "user logged in!"
 
     else:
         print "login_form is invalid"
@@ -39,11 +39,16 @@ def register(request, *args, **kwargs):
         if user_form.is_valid():
             # Save new user
             # TODO: check if user already exists in the database
-            new_user = user_form.save(commit=False)
+            user_form = user_form.cleaned_data
+            print user_form
+            new_user = User.objects.create_user(username=user_form['username'],
+                                                password=user_form['password'],
+                                                first_name=user_form['first_name'],
+                                                last_name=user_form['last_name'])
             new_user.save()
-
+            print "new user created"
             # TODO: we should redirect to a login with a special header or something
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect('/')
         else:
             print "user_form not valid!"
     else:
