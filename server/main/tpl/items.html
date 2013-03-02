@@ -1,4 +1,7 @@
 <html>
+{% if user.is_authenticated %}
+    USER: {{ user.username }}<p>
+{% endif %}
 ITEMS HERE
     {% for item in items %}
     {{ item.name }}
