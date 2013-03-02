@@ -1,14 +1,8 @@
-<html>
-    <head>
-        <title>Items List</title>
-		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
-    </head>
-{% if user.is_authenticated %}
-    USER: {{ user.username }}<p>
-{% endif %}
-ITEMS HERE
+{% extends "base.html" %}
+
+{% block content %}
 <table class="table table-striped">
-<th>#<th>
+<th>#</th>
 <th>Item Type</th>
 <th>Name</th>
 <th>Location</th>
@@ -17,14 +11,16 @@ ITEMS HERE
 <th>Checked Out By</th>
 <th>Last Accounted For</th>
     {% for item in items %}
-        <td>{{ item.pk }}</td>
-        <td>{{ item.item_type }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.location }}</td>
-        <td>{{ item.due_date}}</td>
-        <td>{{ item.owner_id.username }}</td>
-        <td>{{ item.checked_out_by.username }}</td>
-        <td>{{ item.last_accounted_for }}</td>
+        <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.item_type.name }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.due_date}}</td>
+            <td>{{ item.owner_id }}</td>
+            <td>{{ item.checked_out_by }}</td>
+            <td>{{ item.last_accounted_for }}</td>
+        </tr>
     {% endfor %}
 </table>
-</html>
+{% endblock %}
