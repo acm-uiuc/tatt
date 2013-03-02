@@ -9,22 +9,22 @@ from main.forms import *
 
 @csrf_protect
 def index(request):
-    login_form = LoginForm(request.POST)
-    if login_form.is_valid():
-        user_data = login_form.cleaned_data
-        user = authenticate(username=user_data['username'], password=user_data['password'])
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                print "user logged in!" 
-                return HttpResponseRedirect('/items')
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user_data = login_form.cleaned_data
+            user = authenticate(username=user_data['username'], password=user_data['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    print "user logged in!" 
+                    return HttpResponseRedirect('/items')
+                else:
+                    print "user not active"
             else:
-                print "user not active"
-        else:
-            print "Incorrect username/password"
-
+                print "Incorrect username/password"
     else:
-        print "login_form is invalid"
+        login_form = LoginForm()
     c = RequestContext(request, {
             'page_title' : 'index',
             'login_form' :  login_form,
@@ -66,7 +66,6 @@ def userpage(request):
     return render_to_response('user_page.html', c)
 
 def items(request):
-
     c = RequestContext(request, {})
     return render_to_response('items.html', c)
 
