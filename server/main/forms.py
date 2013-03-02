@@ -3,6 +3,39 @@ from django.forms import ModelForm
 from models import *
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import *
+import datetime
+
+
+class ItemForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ItemForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Add Item'))
+
+    class Meta:
+        model = Item
+        fields = ('item_type', 'name', 'location')
+
+class AttributeForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AttributeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Add Attribute'))
+
+    def clean(self):
+        form_get_name = self.cleaned_data.get('name')
+        name = Attribute.objects.all().filter(name=form_get_name)
+
+        if name:
+            raise forms.ValidationError("Name: " + form_username + " already exists!")  
+        return self.cleaned_data
+
+    class Meta:
+        model = Attribute
+        fields = ('name',)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(
@@ -20,8 +53,6 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
 
-        # If you pass FormHelper constructor a form instance
-        # It builds a default layout with all its fields
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Submit'))

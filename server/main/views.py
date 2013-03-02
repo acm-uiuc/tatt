@@ -73,13 +73,18 @@ def items(request):
         #TODO: parse search string and show new items
         pass
 
-    items = Items.objects.all()
+    items = Item.objects.all()
     c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
+def add_item(request):
+    item_form = ItemForm()
+    c = RequestContext(request, {'item_form' : item_form})
+    return render_to_response('add_item.html', c)
+
 def item_info(request, item_id):
     try:
-        item =  Items.objects.get(pk=item_id)
+        item =  Item.objects.get(pk=item_id)
     except Items.DoesNotExist:
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
