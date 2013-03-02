@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-
 <html>
 	<head>
 		<title>Register</title>
-		<link href="{{ STATIC_URL }}_bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
 	</head>
-
 	<body>
-        <form action="/register/" method="post">
-        {% csrf_token %}
-        {{ registration_form.as_p }}
-        <button type="submit">Submit</button>
+        {% load crispy_forms_tags %}
+        {% crispy registration_form %}
 	</body>
 </html>
 		

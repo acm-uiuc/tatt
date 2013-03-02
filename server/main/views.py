@@ -3,16 +3,31 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from main.models import *
+from main.forms import *
 
 @csrf_protect
 def index(request):
-    user_form = UserCreationForm()
+    login_form = LoginForm(request.POST)
+    if login_form.is_valid():
+        user_data = login_form.cleaned_data
+        user = authenticate(username=user_data['username'], password=user_data['password'])
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                print "user logged in!" 
+                return HttpResponseRedirect('/items')
+            else:
+                print "user not active"
+        else:
+            print "Incorrect username/password"
+
+    else:
+        print "login_form is invalid"
     c = RequestContext(request, {
             'page_title' : 'index',
-            'registration_form' :  user_form,
+            'login_form' :  login_form,
         })
     return render_to_response('index.html', c)
 
@@ -20,17 +35,25 @@ def index(request):
 def register(request, *args, **kwargs):
     """Register a new user"""
     if request.method == 'POST':
-        new_user = User()
-        user_form = UserCreationForm(request.POST, instance=new_user)
+        user_form = UserForm(request.POST)
         if user_form.is_valid():
-            user_form.save()
-            login(request, new_user)
-            #TODO: Redirect to a user page or something
-            return render_to_response('register.html', RequestContext(request, {}))
+            # Save new user
+            # TODO: check if user already exists in the database
+            user_form = user_form.cleaned_data
+            print user_form
+            new_user = User.objects.create_user(username=user_form['username'],
+                                                password=user_form['password'])
+            new_user.first_name = user_form['first_name']
+            new_user.last_name = user_form['last_name']
+
+            new_user.save()
+            print "new user created"
+            # TODO: we should redirect to a login with a special header or something
+            return HttpResponseRedirect('/')
         else:
             print "user_form not valid!"
     else:
-        user_form = UserCreationForm()
+        user_form = UserForm()
         
     kwargs.update(csrf(request))
     c = RequestContext(request, dict(registration_form=user_form, **kwargs))

@@ -16,7 +16,7 @@
 	</style> -->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	<!-- added -->
 
-		<script src="{{ STATIC_URL }}/bootstrap/js/bootstrap.js"></script>
+		<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
 
 		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
 		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/main.css">
@@ -36,12 +36,13 @@
 			<div class="span6 offset4" style="min-height: 10em; position:absolute; top:50%">
 				<!-- Modal for the log in -->
 				<div id="logInModal" class="modal hide fade">
-					<form class="form-horizontal">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-							Login
 						</div>
-
+                        {% load crispy_forms_tags %}
+                        {% crispy login_form %}
+                <!--
+					<form class="form-horizontal">
 						<div class="modal-body">
 							<div class="control-group">
 								<label class="control-label" for="name">Username:</label>
@@ -57,6 +58,7 @@
 							<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 						</div>
 					</form>
+                    -->
 				</div>
 				<div style="text-align:center">
 					<h1>TATT</h1>
