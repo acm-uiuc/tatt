@@ -35,12 +35,11 @@ def index(request):
 def register(request, *args, **kwargs):
     """Register a new user"""
     if request.method == 'POST':
+        print request.POST
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            # Save new user
-            # TODO: check if user already exists in the database
+
             user_form = user_form.cleaned_data
-            print user_form
             new_user = User.objects.create_user(username=user_form['username'],
                                                 password=user_form['password'])
             new_user.first_name = user_form['first_name']

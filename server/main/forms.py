@@ -27,6 +27,9 @@ class UserForm(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Submit'))
 
     def clean(self):
+        form_username = self.cleaned_data.get('username')
+        if User.objects.all().filter(username=form_username) is not None:
+            raise forms.ValidationError("User: " + form_username + " already exists!")  
         password = self.cleaned_data.get('password')
         password2 =  self.cleaned_data.get('password2')
         if password and password2 and password != password2:
