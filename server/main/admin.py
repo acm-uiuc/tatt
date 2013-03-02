@@ -1,7 +1,7 @@
-from models import *
+from main.models import *
 from django.contrib import admin
 
-admin.site.register(Items)
-admin.site.register(ItemTypes)
-admin.site.register(Attributes)
-admin.site.register(AttributeValues)
+admin.site.register(Item)
+admin.site.register(ItemType)
+admin.site.register(Attribute)
+admin.site.register(AttributeValue)
