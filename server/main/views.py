@@ -69,12 +69,17 @@ def userpage(request):
     return render_to_response('user_page.html', c)
 
 def items(request):
-    c = RequestContext(request, {})
+    if request.method == 'GET':
+        #TODO: parse search string and show new items
+        pass
+
+    items = Item.objects.all()
+    c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
 def item_info(request, item_id):
     try:
-        item =  Items.objects.get(pk=item_id)
+        item =  Item.objects.get(pk=item_id)
     except Items.DoesNotExist:
         #TODO: print out an error message or something about the item not exhisting
         raise Http404

@@ -1,24 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Items(models.Model):
-    item_type = models.ForeignKey('ItemTypes')
+class Item(models.Model):
+    item_type = models.ForeignKey('ItemType')
     name = models.CharField(max_length=100)
     location = models.CharField(max_length = 100)
-    due_date = models.DateField(auto_now_add = True)
-    owner_id = models.ManyToManyField(User, related_name='owner_id')
-    checked_out_by = models.ManyToManyField(User, related_name='checked_out_by')
-    last_accounted_for = models.DateField()
+    due_date = models.DateField()
+    owner_id = models.ForeignKey(User, related_name='owner_id')
+    checked_out_by = models.ForeignKey(User, related_name='checked_out_by', null=True, blank=True)
+    last_accounted_for = models.DateField(auto_now_add = True)
     has_photo = models.CharField(max_length = 100)
 
-class ItemTypes(models.Model):
+class Attribute(models.Model):
     name = models.CharField(max_length=100)
 
-class Attributes(models.Model):
+class ItemType(models.Model):
     name = models.CharField(max_length=100)
-    item_type = models.ForeignKey(ItemTypes)
+    attributes = models.ManyToManyField(Attribute, related_name='attribute')
 
-class AttributeValues(models.Model):
-    item = models.ForeignKey(Items)
-    attribute = models.ForeignKey(Attributes)
+class AttributeValue(models.Model):
+    item = models.ForeignKey(Item)
+    attribute = models.ForeignKey(Attribute)
     value = models.CharField(max_length=100)
