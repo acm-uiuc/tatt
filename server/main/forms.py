@@ -28,7 +28,9 @@ class UserForm(forms.ModelForm):
 
     def clean(self):
         form_username = self.cleaned_data.get('username')
-        if User.objects.all().filter(username=form_username) is not None:
+        user = User.objects.all().filter(username=form_username)
+        #print user
+        if user:
             raise forms.ValidationError("User: " + form_username + " already exists!")  
         password = self.cleaned_data.get('password')
         password2 =  self.cleaned_data.get('password2')

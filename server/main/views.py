@@ -1,9 +1,9 @@
 from django.template import Context, RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from main.models import *
 from main.forms import *
 
@@ -29,7 +29,11 @@ def index(request):
             'page_title' : 'index',
             'login_form' :  login_form,
         })
-    return render_to_response('index.html', c)
+    return render_to_response('index.html',context_instance=c)
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 @csrf_protect
 def register(request, *args, **kwargs):

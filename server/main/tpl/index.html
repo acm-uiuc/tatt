@@ -1,73 +1,36 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>TATT</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
-
-		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
-<!--	<style>
-		body 
-		{
-			padding-top: 60px;
-			padding-bottom: 40px;
-		}	
-	</style> -->
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	<!-- added -->
-
-		<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
-
-		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/main.css">
-
-		<script src="{{ STATIC_URL }}bootstrap/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>	<!-- move back down -->	
-	</head>
-
-	<body>
-		<!-- Login Button -->
-		<div class="row">
-			<div class="span1 offset10">
-				<a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
-			</div>
-		</div>
-		<!-- Main Part -->
-		<div class="container-fluid" style="min-height:300px">
-			<div class="span6 offset4" style="min-height: 10em; position:absolute; top:50%">
-				<!-- Modal for the log in -->
-				<div id="logInModal" class="modal hide fade">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-						</div>
-                        {% load crispy_forms_tags %}
-                        {% crispy login_form %}
-                <!--
-					<form class="form-horizontal">
-						<div class="modal-body">
-							<div class="control-group">
-								<label class="control-label" for="name">Username:</label>
-								<input id="name" type="text" placeholder="Username">
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="password">Password:</label>
-								<input id="password" type="text" placeholder="Password">
-							</div>	
-						</div>
-						<div class="modal-footer">
-							<button class="btn" type="submit">Login</button>
-							<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-						</div>
-					</form>
-                    -->
-				</div>
-				<div style="text-align:center">
-					<h1>TATT</h1>
-					<h2>Track All The Things</h2>
-				</div>
-				<div class="span1 offset3">
-					<a href="/register/" role="button" class="btn btn-success btn-large">Register</a>
-				</div>
-			</div>
-		</div>
-	</body>
-</html>
+{% extends "base.html" %}
+{% block modals %}
+    {{ block.super }}
+    <!-- Modal for the log in -->
+    <div id="logInModal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        </div>
+        {% load crispy_forms_tags %}
+        {% crispy login_form %}
+        <!--
+        <form class="form-horizontal">
+            <div class="modal-body">
+                <div class="control-group">
+                    <label class="control-label" for="name">Username:</label>
+                    <input id="name" type="text" placeholder="Username">
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password">Password:</label>
+                    <input id="password" type="text" placeholder="Password">
+                </div>	
+            </div>
+            <div class="modal-footer">
+                <button class="btn" type="submit">Login</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            </div>
+        </form>
+        -->
+    </div>
+{% endblock %}
+{% block content %}
+    <div style="text-align:center">
+        <h1>TATT</h1>
+        <h2>Track All The Things</h2>
+    </div>
+{% endblock %}
