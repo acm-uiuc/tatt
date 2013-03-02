@@ -77,11 +77,6 @@ def items(request):
     c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
-def add_item(request):
-    item_form = ItemForm()
-    c = RequestContext(request, {'item_form' : item_form})
-    return render_to_response('add_item.html', c)
-
 def item_info(request, item_id):
     try:
         item =  Item.objects.get(pk=item_id)
