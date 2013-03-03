@@ -14,15 +14,25 @@
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+
+		{% if badcred %}
+		<script>
+		$(window).load(function()
+			{
+				$('#logInModal').modal('show');
+			});
+		</script>
+		{% endif %}
+
     </head>
     <body>
         <div id="wrap">
             <!-- Login Button -->
             <div class="row">
-                <div class="span1 offset10">
+                <div class="span3 offset10">
                     {% if user.is_anonymous %}
                     <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
-                    <a href="/register/" role="button" class="btn btn-success btn-large">Register</a>
+                    <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
                     {% else %}
                     Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary">Logout</a>
                     {% endif %}

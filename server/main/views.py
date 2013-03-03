@@ -9,11 +9,18 @@ from main.forms import *
 
 @csrf_protect
 def index(request):
+    c = RequestContext(request, {
+        'page_title' : 'index',
+		'badcred' : False
+    })
+
     if request.method == 'POST':
+        c['badcred'] = True
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
             user_data = login_form.cleaned_data
             user = authenticate(username=user_data['username'], password=user_data['password'])
+            print user_data['username'] + " " + user_data['password']
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -21,14 +28,7 @@ def index(request):
                     return HttpResponseRedirect('/items')
                 else:
                     print "user not active"
-            else:
-                print "Incorrect username/password"
-#    else:
-#        login_form = LoginForm()
-    c = RequestContext(request, {
-            'page_title' : 'index',
-#            'login_form' :  login_form,
-        })
+
     return render_to_response('index.html',context_instance=c)
 
 def logout_view(request):

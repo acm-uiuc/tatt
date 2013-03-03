@@ -122,9 +122,10 @@ class LoginForm(forms.Form):
         super(LoginForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        form_username = self.cleaned_data.get('Login')
-        form_password = self.cleaned_data.get('Password')
+        form_username = self.cleaned_data.get('username')
+        form_password = self.cleaned_data.get('password')
         user = authenticate(username=form_username, password=form_password)
+        print "HELLO"
         if user is None:
             raise forms.ValidationError("Invalid username/password")  
         return self.cleaned_data
