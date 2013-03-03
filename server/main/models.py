@@ -9,7 +9,7 @@ class Item(models.Model):
     owner_id = models.ForeignKey(User, related_name='owner_id')
     checked_out_by = models.ForeignKey(User, related_name='checked_out_by', null=True, blank=True)
     last_accounted_for = models.DateField(auto_now_add = True)
-    has_photo = models.CharField(max_length = 100)
+    has_photo = models.BooleanField()
 
 class Attribute(models.Model):
     name = models.CharField(max_length=100)
