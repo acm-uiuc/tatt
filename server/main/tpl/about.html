@@ -1,3 +1,10 @@
-<HTML>
+{% extends "base.html" %}
+{% block modals %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<div id="about">
     Lots of awesome stuff about the projet, contributors ideas, etc.
-</HTML>
+</div>
+{% endblock %}
+

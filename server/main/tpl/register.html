@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Register</title>
-		<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
-	</head>
-	<body>
+{% extends "base.html" %}
+{% block modals %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+    <div id="registration">
         {% load crispy_forms_tags %}
         {% crispy registration_form %}
-	</body>
-</html>
-		
+    </div>
+{% endblock %}
