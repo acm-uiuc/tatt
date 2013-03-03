@@ -1,4 +1,6 @@
 *.pyc
+*.py~
+compass/sass-cache/*
 collected_static/*
 *local_settings.py
 server/static/*
