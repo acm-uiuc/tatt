@@ -23,11 +23,11 @@ def index(request):
                     print "user not active"
             else:
                 print "Incorrect username/password"
-    else:
-        login_form = LoginForm()
+#    else:
+#        login_form = LoginForm()
     c = RequestContext(request, {
             'page_title' : 'index',
-            'login_form' :  login_form,
+#            'login_form' :  login_form,
         })
     return render_to_response('index.html',context_instance=c)
 
