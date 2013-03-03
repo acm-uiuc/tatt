@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth import authenticate
 from models import *
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import *
@@ -120,6 +121,13 @@ class LoginForm(forms.Form):
         #)
         super(LoginForm, self).__init__(*args, **kwargs)
 
+    def clean(self):
+        form_username = self.cleaned_data.get('Login')
+        form_password = self.cleaned_data.get('Password')
+        user = authenticate(username=form_username, password=form_password)
+        if user is None:
+            raise forms.ValidationError("Invalid username/password")  
+        return self.cleaned_data
 
         #self.helper.layout = Layout(
         #    Div('class="modal-body"',
