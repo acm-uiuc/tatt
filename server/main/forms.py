@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from models import *
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import *
+from crispy_forms.bootstrap import *
 import datetime
 
 
@@ -75,18 +76,29 @@ class UserForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        label = "Login"
-        )
+        label = "Login",
+    )
     password = forms.CharField(
         label = "Password",
-        widget=forms.PasswordInput
-        )
+        widget=forms.PasswordInput,
+    )
 
     def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_class = 'form-login'
+        self.helper.add_input(Submit('submit', 'Login'))
+        #self.helper.layout = Layout(
+        #    Fieldset(
+        #        'username',
+        #        'password'
+        #    ),
+        #    ButtonHolder(
+        #        Submit('submit', 'Login')
+        #    )
+        #)
         super(LoginForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
-        self.helper.form_method = 'post'
 
         #self.helper.layout = Layout(
         #    Div('class="modal-body"',
@@ -99,4 +111,3 @@ class LoginForm(forms.Form):
         #    )
         #)
 
-        self.helper.add_input(Submit('submit', 'Login'))
