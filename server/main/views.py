@@ -9,6 +9,11 @@ from main.forms import *
 
 @csrf_protect
 def index(request):
+    c = RequestContext(request, {
+        'page_title' : 'index',
+		'badcred' : False
+    })
+
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -22,13 +27,8 @@ def index(request):
                 else:
                     print "user not active"
             else:
-                print "Incorrect username/password"
-#    else:
-#        login_form = LoginForm()
-    c = RequestContext(request, {
-            'page_title' : 'index',
-#            'login_form' :  login_form,
-        })
+                c['badcred'] = True
+
     return render_to_response('index.html',context_instance=c)
 
 def logout_view(request):

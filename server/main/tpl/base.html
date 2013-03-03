@@ -14,6 +14,16 @@
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+
+		{% if badcred %}
+		<script>
+		$(window).load(function()
+			{
+				$('#logInModal').modal('show');
+			});
+		</script>
+		{% endif %}
+
     </head>
     <body>
         <div id="wrap">
@@ -41,6 +51,10 @@
                             </div>
                             {% load crispy_forms_tags %}
                             {% crispy login_form %}
+
+							{% if badcred %}
+								Please log in with the correct username and password.
+							{% endif %}
                             <!--
                             <form class="form-horizontal">
                                 <div class="modal-body">
