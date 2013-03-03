@@ -15,14 +15,14 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 
-		{% if badcred %}
-		<script>
-		$(window).load(function()
-			{
-				$('#logInModal').modal('show');
-			});
-		</script>
-		{% endif %}
+        {% if badcred %}
+        <script>
+            $(window).load(function()
+            {
+                $('#logInModal').modal('show');
+            });
+        </script>
+        {% endif %}
 
     </head>
     <body>
@@ -44,32 +44,32 @@
                     <!-- Modal for the log in -->
                     {% block modals %}
                     {% if user.is_anonymous %}
-                        <!-- Modal for the log in -->
-                        <div id="logInModal" class="modal hide fade">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                            </div>
-                            {% load crispy_forms_tags %}
-                            {% crispy login_form %}
-                            <!--
-                            <form class="form-horizontal">
-                                <div class="modal-body">
-                                    <div class="control-group">
-                                        <label class="control-label" for="name">Username:</label>
-                                        <input id="name" type="text" placeholder="Username">
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="password">Password:</label>
-                                        <input id="password" type="text" placeholder="Password">
-                                    </div>	
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" type="submit">Login</button>
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                </div>
-                            </form>
-                            -->
+                    <!-- Modal for the log in -->
+                    <div id="logInModal" class="modal hide fade">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                         </div>
+                        {% load crispy_forms_tags %}
+                        {% crispy login_form %}
+                        <!--
+                        <form class="form-horizontal">
+                            <div class="modal-body">
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Username:</label>
+                                    <input id="name" type="text" placeholder="Username">
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="password">Password:</label>
+                                    <input id="password" type="text" placeholder="Password">
+                                </div>	
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" type="submit">Login</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            </div>
+                        </form>
+                        -->
+                    </div>
                     {% endif %}
                     {% endblock %}
 
@@ -80,7 +80,11 @@
         </div>
         <div id="footer">
             <div class="container">
-                <p class="muted credit">Track all the Things team</p>
+                <div id="copyright" class="row">
+                    <div class="offset1">
+                        <p class="muted credit">&copy; {% now "Y" %} Track all the Things team</p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

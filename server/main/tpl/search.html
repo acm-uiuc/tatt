@@ -1,4 +1,11 @@
-<html>
-SEARCH QUERY:
+{% extends "base.html" %}
+{% block modals %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<div id="search">
+    SEARCH QUERY:
     {{ search_query }}
-</html>
+</div>
+{% endblock %}
+
