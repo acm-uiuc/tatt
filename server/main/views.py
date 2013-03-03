@@ -98,3 +98,62 @@ def search_query(query_string):
 def about(request):
     c = RequestContext(request, {})
     return render_to_response('about.html', c)
+
+
+##### Views that are used to add to the database #####
+def add_item(request):
+    if request.method == 'POST':
+        item_form = ItemForm(request)
+        if item_form.is_valid():
+            item_form = item_form.cleaned_data
+            #TODO: Test that this works if not we'll need to pull each item from the form
+            new_item = Item(item_form)
+            new_item.location = 'None'
+            new_item.has_photo = False
+            new_item.save()
+            print "Item added to database"
+        else:
+            print "item_form not valid"
+    else:
+        HttpResponseRedirect("/items")
+
+def add_item_type(request):
+    if request.method == 'POST':
+        item_type_form = ItemTypeForm(request)
+        if item_type_form.is_valid():
+            item_type_form = item_type_form.cleaned_data
+            #TODO: Test that this works if not we'll need to pull each item from the form
+            new_type = ItemType(item_type_form)
+            print "ItemType added to database"
+        else:
+            print "item_type_form not valid"
+    else:
+        HttpResponseRedirect("/items")
+
+def add_attribute(request):
+    if request.method == 'POST':
+        attr_form = AttributeForm(request)
+        if attr_form.is_valid():
+            attr_form = attr_form.cleaned_data
+            #TODO: Like item, verify this works
+            attr = Attribute(attr_form)
+            attr.save() 
+            print "Attribute added to database"
+        else:
+            print "attr_form is not valid!"
+    else:
+        HttpResponseRedirect("/items")
+
+def add_attribute_value(request):
+    if request.method == 'POST':
+        attr_val_form = AttributeValueForm(request)
+        if attr_val_form.is_valid():
+            attr_val_form = attr_val_form.cleaned_data
+            #TODO: Like item, verify this works
+            attr_val = AttributeValue(attr_val_form)
+            attr_val.save()
+            print "Attribute value added to database"
+        else:
+            print "attr_val_form is not valid!"
+    else:
+        HttpResponseRedirect("/items")

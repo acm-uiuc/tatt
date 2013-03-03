@@ -18,8 +18,29 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ('item_type', 'name', 'location')
 
-class AttributeForm(forms.ModelForm):
+class ItemTypeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ItemTypeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Add Item Type'))
 
+    class Meta:
+        model = ItemType
+        fields = ('name', 'attributes')
+
+class AttributeValueForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AttributeValueForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Add Attribute'))
+
+    class Meta:
+        model = AttributeValue
+        fields = ('item', 'attribute', 'value')
+
+class AttributeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AttributeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
