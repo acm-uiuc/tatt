@@ -17,7 +17,7 @@ that you will create a python virtual environment in your home directory.
 # Software setup
 To install the project you will need to do the following.
 
-* sudo apt-get install python git python-pip
+* sudo apt-get install python git python-pip ruby-compass
 * sudo pip install virtualenv
 * cd ~
 * git clone git@github.com:{YOUR GITHUB ID HERE}/tatt.git
@@ -39,6 +39,10 @@ the first time you run the project
 * python manage.py collectstatic
 * python manage.py runserver
 
+In another terminal do the following and then minimize it:
+* cd ~/tatt/compass
+* compass watch
+
 While the server is running, you can go to 127.0.0.1:8000 in your browser to test
 it.  To stop the server, just press Ctrl-C.
 
@@ -48,3 +52,8 @@ syncdb line.
 Whenever new static files (images, css, javascript, etc) are added you will need
 to re-run the collecstatic command.  We will look at changes in the future so
 this is not needed on dev environments.
+
+The command "compass watch" will check for when the files in ~/tatt/compass/sass
+are modified.  If they are, then compass will regenerate the css files used by
+the site.  As such, be sure to edit the files compass that is watching rather
+than the files in the static css directory.

@@ -1,5 +1,10 @@
 *.pyc
+*.py~
+compass/.sass-cache/*
 collected_static/*
 *local_settings.py
 server/static/*
+server/main/static/css/main.css
+server/main/static/css/ie.css
+server/main/static/css/print.css
 tatt_db
