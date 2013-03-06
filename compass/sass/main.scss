@@ -6,7 +6,9 @@ body
 
 #login_buttons
 {
-    margin-top: 5px;
+    margin: 8px -5px 0 0;
+	float:right;
+	text-align:right;
 }
 
 #page_header
@@ -14,6 +16,9 @@ body
     height: 100px;
 }
 
+#logo h1 {
+	margin-top: 8px;
+}
 
 
 /* Wrapper for page content to push down footer */
