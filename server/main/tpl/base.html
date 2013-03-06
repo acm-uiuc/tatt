@@ -28,8 +28,8 @@
     <body>
         <div id="wrap">
             <!-- Login Button -->
-            <div class="row">
-                <div class="span3 offset10">
+            <div class="row" id="page_header">
+                <div  id="login_buttons" class="span3 offset10">
                     {% if user.is_anonymous %}
                     <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
                     <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
@@ -38,45 +38,49 @@
                     {% endif %}
                 </div>
             </div>
-            <!-- Main Part -->
-            <div class="container-fluid">
-                <div id="content" class="span6 offset2" style="border:1px">
-                    <!-- Modal for the log in -->
-                    {% block modals %}
-                    {% if user.is_anonymous %}
-                        <!-- Modal for the log in -->
-                        <div id="logInModal" class="modal hide fade">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                            </div>
-                            {% load crispy_forms_tags %}
-                            {% crispy login_form %}
-                            <!--
-                            <form class="form-horizontal">
-                                <div class="modal-body">
-                                    <div class="control-group">
-                                        <label class="control-label" for="name">Username:</label>
-                                        <input id="name" type="text" placeholder="Username">
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="password">Password:</label>
-                                        <input id="password" type="text" placeholder="Password">
-                                    </div>	
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" type="submit">Login</button>
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                </div>
-                            </form>
-                            -->
-                        </div>
-                    {% endif %}
-                    {% endblock %}
 
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+			<div id="space"></div>
+            <!-- Main Part -->
+			<div class="row">
+		        <div class="container-fluid">
+		            <div id="content" class="span10 offset1" style="border:1px">
+		                <!-- Modal for the log in -->
+		                {% block modals %}
+		                {% if user.is_anonymous %}
+		                    <!-- Modal for the log in -->
+		                    <div id="logInModal" class="modal hide fade">
+		                        <div class="modal-header">
+		                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		                        </div>
+		                        {% load crispy_forms_tags %}
+		                        {% crispy login_form %}
+		                        <!--
+		                        <form class="form-horizontal">
+		                            <div class="modal-body">
+		                                <div class="control-group">
+		                                    <label class="control-label" for="name">Username:</label>
+		                                    <input id="name" type="text" placeholder="Username">
+		                                </div>
+		                                <div class="control-group">
+		                                    <label class="control-label" for="password">Password:</label>
+		                                    <input id="password" type="text" placeholder="Password">
+		                                </div>	
+		                            </div>
+		                            <div class="modal-footer">
+		                                <button class="btn" type="submit">Login</button>
+		                                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		                            </div>
+		                        </form>
+		                        -->
+		                    </div>
+		                {% endif %}
+		                {% endblock %}
+
+		                {% block content %}
+		                {% endblock %}
+		            </div>
+		        </div>
+			</div>
         </div>
         <div id="footer">
             <div class="container">

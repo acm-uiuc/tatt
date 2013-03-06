@@ -1,7 +1,19 @@
 html,
-body {
+body 
+{
     height: 100%;
 }
+
+#login_buttons
+{
+	margin-top: 5px;
+}
+
+#page_header
+{
+	height: 50px;
+}
+
 
 /* Wrapper for page content to push down footer */
 #wrap {
