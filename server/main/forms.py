@@ -78,7 +78,18 @@ class UserForm(forms.ModelForm):
 
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit'))
+        #self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.layout = Layout(
+            'username',
+            'first_name',
+            'last_name',
+            'password',
+            'password2',
+            ButtonHolder(
+                Submit('submit', 'Submit')
+            ),
+            Hidden('formtype', 'register')
+        )
 
     def clean(self):
         form_username = self.cleaned_data.get('username')
@@ -99,33 +110,32 @@ class UserForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(
         label = "Login",
+        widget=forms.TextInput
     )
     password = forms.CharField(
         label = "Password",
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput
     )
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
+        self.helper.form_action = '/'
         self.helper.form_class = 'form-login'
-        self.helper.add_input(Submit('submit', 'Login'))
-        #self.helper.layout = Layout(
-        #    Fieldset(
-        #        'username',
-        #        'password'
-        #    ),
-        #    ButtonHolder(
-        #        Submit('submit', 'Login')
-        #    )
-        #)
+       # self.helper.add_input(Submit('submit', 'ASDF'))
+        self.helper.layout = Layout(
+            'username',
+            'password',
+            ButtonHolder(
+                Submit('submit', 'Login')
+            )
+        )
         super(LoginForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         form_username = self.cleaned_data.get('username')
         form_password = self.cleaned_data.get('password')
         user = authenticate(username=form_username, password=form_password)
-        print "HELLO"
         if user is None:
             raise forms.ValidationError("Invalid username/password")  
         return self.cleaned_data
