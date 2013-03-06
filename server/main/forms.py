@@ -51,12 +51,13 @@ class AttributeForm(forms.ModelForm):
         name = Attribute.objects.all().filter(name=form_get_name)
 
         if name:
-            raise forms.ValidationError("Name: " + form_username + " already exists!")  
+            raise forms.ValidationError("Name: " + form_get_name + " already exists!")
         return self.cleaned_data
 
     class Meta:
         model = Attribute
         fields = ('name',)
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(
@@ -123,7 +124,6 @@ class LoginForm(forms.Form):
         form_username = self.cleaned_data.get('username')
         form_password = self.cleaned_data.get('password')
         user = authenticate(username=form_username, password=form_password)
-        print "HELLO"
         if user is None:
             raise forms.ValidationError("Invalid username/password")  
         return self.cleaned_data
