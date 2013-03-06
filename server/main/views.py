@@ -103,19 +103,24 @@ def about(request):
 ##### Views that are used to add to the database #####
 def add_item(request):
     if request.method == 'POST':
-        item_form = ItemForm(request)
+        item_form = ItemForm(request.POST)
         if item_form.is_valid():
             item_form = item_form.cleaned_data
             #TODO: Test that this works if not we'll need to pull each item from the form
-            new_item = Item(item_form)
-            new_item.location = 'None'
+            new_item = Item()
+            new_item.item_type = item_form['item_type']
+            new_item.name = item_form['name']
+            new_item.location = item_form['location']
+            new_item.owner_id = item_form['owner_id']
             new_item.has_photo = False
             new_item.save()
             print "Item added to database"
         else:
             print "item_form not valid"
     else:
-        HttpResponseRedirect("/items")
+        item_form = ItemForm()
+    c = RequestContext(request, { 'item_form' : item_form })
+    return render_to_response("add_item.html", c)
 
 def add_item_type(request):
     if request.method == 'POST':
