@@ -1,8 +1,8 @@
-from django.template import Context, RequestContext
+from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import login, logout, authenticate
 from main.models import *
 from main.forms import *
