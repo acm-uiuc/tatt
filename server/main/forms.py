@@ -105,20 +105,11 @@ class LoginForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.form_class = 'form-login'
         self.helper.add_input(Submit('submit', 'Login'))
-        #self.helper.layout = Layout(
-        #    Fieldset(
-        #        'username',
-        #        'password'
-        #    ),
-        #    ButtonHolder(
-        #        Submit('submit', 'Login')
-        #    )
-        #)
-        super(LoginForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         form_username = self.cleaned_data.get('username')
@@ -128,14 +119,4 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("Invalid username/password")  
         return self.cleaned_data
 
-        #self.helper.layout = Layout(
-        #    Div('class="modal-body"',
-        #        Div('class="control-group"',
-        #        Fieldset('Login')
-        #        ),
-        #        Div('class="control-group"',
-        #        Fieldset('Password')
-        #        )
-        #    )
-        #)
 
