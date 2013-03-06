@@ -28,7 +28,7 @@ class ItemTypeForm(forms.ModelForm):
 
     class Meta:
         model = ItemType
-        fields = ('name', 'attributes')
+        fields = ('name', )
 
 class AttributeValueForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
