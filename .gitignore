@@ -8,3 +8,5 @@ server/main/static/css/main.css
 server/main/static/css/ie.css
 server/main/static/css/print.css
 tatt_db
+*.iml
+.idea
