@@ -18,9 +18,10 @@ urlpatterns = patterns('',
 	# User page
 	url(r'^userpage/$', 'main.views.userpage'),
 
-    # Item view pages
+    # Item related pages
     url(r'^items/$', 'main.views.items'),
     url(r'^item/(?P<item_id>\d+)/$', 'main.views.item_info'),
+    url(r'^additem/$','main.views.add_item'),
     
     # Search page
     url(r'^search/(?P<search_query>[a-zA-Z]+)', 'main.views.search'),
