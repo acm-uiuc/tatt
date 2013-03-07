@@ -79,7 +79,7 @@ def items(request):
         #TODO: parse search string and show new items
         pass
 
-    items = Item.objects.all()
+    items = Item.objects.filter(owner_id = request.user)
     c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
@@ -90,7 +90,7 @@ def item_info(request, item_id):
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
     c = RequestContext(request, {'item' : item})
-    return render_to_response('itemDetail.html', c)
+    return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
     #TODO: Search the database and return a list of items, put in to requestcontext
