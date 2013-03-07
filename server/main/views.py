@@ -122,6 +122,7 @@ def add_item(request):
             new_item.has_photo = False
             new_item.save()
             print "Item added to database"
+            return redirect('/items/')
         else:
             print "item_form not valid"
     else:
