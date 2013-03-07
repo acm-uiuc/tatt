@@ -12,9 +12,6 @@
         {% endblock %}
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-
         {% if badcred %}
         <script>
             $(window).load(function()
@@ -91,7 +88,11 @@
                 </div>
             </div>
         </div>
-        {% block pageJS %}
+
+        <!-- Scripts located here for faster page loading !-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+        {% block pageJavascript %}
         {% endblock %}
     </body>
 </html>
