@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block contextButtons %}
-    <a href="" role="button" class="btn-large btn-primary btn-success">Add Items</a>
+    <a href="/additem/" role="button" class="btn-large btn-primary btn-success">Add Items</a>
 {% endblock %}
 
 {% block content %}
@@ -32,7 +32,7 @@
                     <tr>
                         <td>{{ item.pk }}</td>
                         <td>{{ item.item_type.name }}</td>
-                        <td>{{ item.name }}</td>
+                        <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
                         <td>{{ item.location }}</td>
                         <td>{{ item.due_date}}</td>
                         <td>{{ item.owner_id }}</td>
