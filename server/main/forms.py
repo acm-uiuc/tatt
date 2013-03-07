@@ -5,6 +5,16 @@ from crispy_forms.layout import *
 
 from models import *
 
+class CheckoutForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CheckoutForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Checkout'))
+
+    class Meta:
+        model = Item
+        fields = ()
 
 class ItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

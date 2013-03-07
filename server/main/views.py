@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import login, logout, authenticate
 from main.models import *
 from main.forms import *
+from datetime import timedelta, date
 
 @csrf_protect
 def index(request):
@@ -106,6 +107,28 @@ def about(request):
     c = RequestContext(request, {})
     return render_to_response('about.html', c)
 
+@login_required()
+def checkout(request, item_id):
+    try:
+        item =  Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        #TODO: print out an error message or something about the item not exhisting
+        raise Http404
+    if request.method == 'POST':
+        checkout_form = CheckoutForm(request.POST)
+        if checkout_form.is_valid():
+            item.checked_out_by = request.user
+            item.last_accounted_for = date.today()
+            #TODO: add a option to set how long people are allowed to borrow for
+            item.due_date = item.last_accounted_for + timedelta(weeks=2)
+            item.save()
+            return HttpResponseRedirect('/items')
+        else:
+            print "checkout_form not valid"
+    else:
+        checkout_form = CheckoutForm()
+    c = RequestContext(request, { 'checkout_form' : checkout_form, 'item' : item })
+    return render_to_response('checkout.html', c)
 
 ##### Views that are used to add to the database #####
 @login_required()

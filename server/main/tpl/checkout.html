@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block contextButtons %}
+{% endblock %}
+
+{% block content %}
+    <h1>Checkout {{ item.name }} for 2 weeks</h1>
+    {% load crispy_forms_tags %}
+    {% crispy checkout_form %}
+{% endblock %}
+
+{% block pageJavascript %}
+{% endblock %}
