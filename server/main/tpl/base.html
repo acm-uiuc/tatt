@@ -53,7 +53,7 @@
                 </div>
 
                 <div id="main_section" class="row-fluid">
-                    <!-- Main Part -->
+                    <!-- Main Content Area -->
 
                     <div class="row-fluid">
                         <div id="content" class="span12">
@@ -76,6 +76,8 @@
                         {% endblock %}
                         </div>
                     </div>
+
+                    <!-- End Main Content Area !-->
                 </div>
             </div>
         </div>
@@ -89,5 +91,7 @@
                 </div>
             </div>
         </div>
+        {% block pageJS %}
+        {% endblock %}
     </body>
 </html>
