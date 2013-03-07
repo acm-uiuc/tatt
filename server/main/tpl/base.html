@@ -12,12 +12,6 @@
         {% endblock %}
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css">
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/plax.js"></script>
-
-		<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
-
         {% if badcred %}
         <script>
             $(window).load(function()
@@ -38,6 +32,8 @@
                         <a href="/" role="button" class="btn-large btn-primary">Home</a>
                         {% elif homepage and user.is_active %}
                         <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
+                        {% else %}
+                        <a href="/about/" role="button" class="btn-large btn-primary">About</a>
                         {% endif %}
                         {% block contextButtons %}
 
@@ -54,7 +50,7 @@
 		        </div>
 			</div>
                 <div id="main_section" class="row-fluid">
-                    <!-- Main Part -->
+                    <!-- Main Content Area -->
 
                     <div class="row-fluid">
                         <div id="content" class="span12">
@@ -77,6 +73,8 @@
                         {% endblock %}
                         </div>
                     </div>
+
+                    <!-- End Main Content Area !-->
                 </div>
             </div>
         </div>
@@ -96,5 +94,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Scripts located here for faster page loading !-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/plax.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+        {% block pageJavascript %}
+        {% endblock %}
     </body>
 </html>

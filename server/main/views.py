@@ -89,7 +89,8 @@ def item_info(request, item_id):
     except Item.DoesNotExist:
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
-    return render_to_response('itemDetail.html', {'item' : item} )
+    c = RequestContext(request, {'item' : item})
+    return render_to_response('itemDetail.html', c)
 
 def search(request, search_query):
     #TODO: Search the database and return a list of items, put in to requestcontext
