@@ -25,32 +25,30 @@
     <body>
         <div id="wrap">
             <!-- Login Button -->
-            <div class="container">
-                <div id="page_header" class="row">
-                    <div class="span9 top_buttons">
-                        {% if not homepage %}
+			<div class="container">
+		        <div class="row" id="page_header">
+					<div id="logo" class="span9 top_buttons">
+						{% if not homepage %}
                         <a href="/" role="button" class="btn-large btn-primary">Home</a>
                         {% elif homepage and user.is_active %}
                         <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
                         {% else %}
                         <a href="/about/" role="button" class="btn-large btn-primary">About</a>
                         {% endif %}
-                        {%  block contextButtons %}
+                        {% block contextButtons %}
 
-                        {%  endblock %}
-                    </div>
-                    <div class="span3 top_buttons pull-right">
-                        <div class="pull-right">
-                        {% if user.is_anonymous %}
-                        <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
-                        <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
-                        {% else %}
+                        {% endblock %}
+					</div>
+		            <div class="span3 top_buttons pull-right">
+		                {% if user.is_anonymous %}
+		                <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
+		                <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
+		                {% else %}
                         Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary btn-danger">Logout</a>
                         {% endif %}
-                        </div>
-                    </div>
-                </div>
-
+		            </div>
+		        </div>
+			</div>
                 <div id="main_section" class="row-fluid">
                     <!-- Main Content Area -->
 
@@ -81,6 +79,12 @@
             </div>
         </div>
 
+		<div id="allTheThingsContainer">
+			<img id="allTheThings2" src="{{ STATIC_URL }}images/allTheThingsBack.png" data-xrange="40" data-yrange="20" data-invert="true" />
+			<img id="allTheThings" src="{{ STATIC_URL }}images/allTheThings.png" data-xrange="40" data-yrange="40" />
+			
+		</div>
+		<div id="push"></div>
         <div id="footer">
             <div class="container">
                 <div id="copyright" class="row">
@@ -94,6 +98,8 @@
         <!-- Scripts located here for faster page loading !-->
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/plax.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
         {% block pageJavascript %}
         {% endblock %}
     </body>

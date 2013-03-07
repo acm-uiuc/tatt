@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     # Item related pages
     url(r'^items/$', 'main.views.items'),
     url(r'^item/(?P<item_id>\d+)/$', 'main.views.item_info'),
+    url(r'^checkout/(?P<item_id>\d+)/$', 'main.views.checkout'),
     url(r'^additem/$','main.views.add_item'),
     
     # Search page
