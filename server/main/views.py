@@ -108,6 +108,7 @@ def about(request):
 
 
 ##### Views that are used to add to the database #####
+@login_required()
 def add_item(request):
     if request.method == 'POST':
         item_form = ItemForm(request.POST)
@@ -118,7 +119,7 @@ def add_item(request):
             new_item.item_type = item_form['item_type']
             new_item.name = item_form['name']
             new_item.location = item_form['location']
-            new_item.owner_id = item_form['owner_id']
+            new_item.owner_id = request.user # item_form['owner_id']
             new_item.has_photo = False
             new_item.save()
             print "Item added to database"
