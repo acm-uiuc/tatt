@@ -1,5 +1,4 @@
 import os
-import django
 # Django settings for tatt project.
 
 DEBUG = True
@@ -56,6 +55,8 @@ MEDIA_ROOT = ''
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
+
+LOGIN_URL = '/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

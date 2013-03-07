@@ -36,7 +36,7 @@
 					<div id="logo" class="span3">
 						<a href="{{ BASE_URL }}"><h1>TATT</h1></a>
 					</div>
-		            <div  id="login_buttons" class="span4">
+		            <div id="login_buttons" class="span4">
 		                {% if user.is_anonymous %}
 		                <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
 		                <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
@@ -59,37 +59,21 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                             </div>
-							<div id="loginForm">
+							<div class="modal-body">
 		                        {% load crispy_forms_tags %}
 		                        {% crispy login_form %}
 							</div>
-                            <!--
-                            <form class="form-horizontal">
-                                <div class="modal-body">
-                                    <div class="control-group">
-                                        <label class="control-label" for="name">Username:</label>
-                                        <input id="name" type="text" placeholder="Username">
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="password">Password:</label>
-                                        <input id="password" type="text" placeholder="Password">
-                                    </div>    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" type="submit">Login</button>
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                </div>
-                            </form>
-                            -->
                         </div>
-                    {% endif %}
-                    {% endblock %}
-                    {% block content %}
-                    {% endblock %}
+                        {% endif %}
+                        {% endblock %}
+                        {% block content %}
+                        {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
 		<div id="allTheThingsContainer">
 			<img id="allTheThings2" src="{{ STATIC_URL }}images/allTheThingsBack.png" data-xrange="40" data-yrange="20" data-invert="true" />
 			<img id="allTheThings" src="{{ STATIC_URL }}images/allTheThings.png" data-xrange="40" data-yrange="40" />
@@ -99,7 +83,7 @@
         <div id="footer">
             <div class="container">
                 <div id="copyright" class="row">
-                    <div class="offset1">
+                    <div class="span12">
                         <p class="muted credit">&copy; {% now "Y" %} Track all the Things team</p>
                     </div>
                 </div>
