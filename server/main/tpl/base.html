@@ -14,6 +14,9 @@
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/plax.js"></script>
+
+		<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
 
         {% if badcred %}
         <script>
@@ -31,7 +34,7 @@
 			<div class="container-fluid">
 		        <div class="row-fluid" id="page_header">
 					<div id="logo" class="span3">
-						<h1>TATT</h1>
+						<a href="{{ BASE_URL }}"><h1>TATT</h1></a>
 					</div>
 		            <div  id="login_buttons" class="span4">
 		                {% if user.is_anonymous %}
@@ -56,8 +59,10 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                             </div>
-                            {% load crispy_forms_tags %}
-                            {% crispy login_form %}
+							<div id="loginForm">
+		                        {% load crispy_forms_tags %}
+		                        {% crispy login_form %}
+							</div>
                             <!--
                             <form class="form-horizontal">
                                 <div class="modal-body">
@@ -85,6 +90,12 @@
                 </div>
             </div>
         </div>
+		<div id="allTheThingsContainer">
+			<img id="allTheThings2" src="{{ STATIC_URL }}images/allTheThingsBack.png" data-xrange="40" data-yrange="20" data-invert="true" />
+			<img id="allTheThings" src="{{ STATIC_URL }}images/allTheThings.png" data-xrange="40" data-yrange="40" />
+			
+		</div>
+		<div id="push"></div>
         <div id="footer">
             <div class="container">
                 <div id="copyright" class="row">
