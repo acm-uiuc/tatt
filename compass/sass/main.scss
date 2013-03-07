@@ -35,6 +35,12 @@ body
 	margin-top:-8px !important;
 }
 
+/* Even rows of tables are white */
+.table-striped tbody > tr:nth-child(even) > td,
+.table-striped tbody > tr:nth-child(even) > th {
+  background-color: #ffffff;
+}
+
 #page_header {
   height: 100px;
 }
