@@ -11,6 +11,10 @@ body {
 	background:#F0F0E0;
 }
 
+.top_buttons {
+  margin-top: 5px;
+}
+
 #allTheThingsContainer {
 	position:relative;
 	float:right;
@@ -31,19 +35,8 @@ body {
 	}
 }
 
-#login_buttons
-{
-    margin: 8px -5px 0 0;
-	float:right;
-	text-align:right;
-}
-
 .modal-header button {
 	margin-top:-8px !important;
-}
-
-#logo h1 {
-	margin-top: 8px;
 }
 
 #page_header {
