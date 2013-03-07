@@ -21,7 +21,6 @@
                         <th>Name</th>
                         <th>Location</th>
                         <th>Due Date</th>
-                        <th>Owner Name</th>
                         <th>Checked Out By</th>
                         <th>Last Accounted For</th>
                     </tr>
@@ -35,7 +34,6 @@
                         <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
                         <td>{{ item.location }}</td>
                         <td>{{ item.due_date}}</td>
-                        <td>{{ item.owner_id }}</td>
                         <td>{{ item.checked_out_by }}</td>
                         <td>{{ item.last_accounted_for }}</td>
                     </tr>

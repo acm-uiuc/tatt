@@ -80,7 +80,7 @@ def items(request):
         #TODO: parse search string and show new items
         pass
 
-    items = Item.objects.all()
+    items = Item.objects.filter(owner_id = request.user)
     c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
@@ -91,7 +91,7 @@ def item_info(request, item_id):
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
     c = RequestContext(request, {'item' : item})
-    return render_to_response('itemDetail.html', c)
+    return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
     #TODO: Search the database and return a list of items, put in to requestcontext
@@ -131,6 +131,7 @@ def checkout(request, item_id):
     return render_to_response('checkout.html', c)
 
 ##### Views that are used to add to the database #####
+@login_required()
 def add_item(request):
     if request.method == 'POST':
         item_form = ItemForm(request.POST)
@@ -141,10 +142,11 @@ def add_item(request):
             new_item.item_type = item_form['item_type']
             new_item.name = item_form['name']
             new_item.location = item_form['location']
-            new_item.owner_id = item_form['owner_id']
+            new_item.owner_id = request.user # item_form['owner_id']
             new_item.has_photo = False
             new_item.save()
             print "Item added to database"
+            return redirect('/items/')
         else:
             print "item_form not valid"
     else:

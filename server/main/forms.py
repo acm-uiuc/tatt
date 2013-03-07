@@ -25,7 +25,7 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ('item_type', 'name', 'location', 'owner_id')
+        fields = ('item_type', 'name', 'location')
 
 class ItemTypeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
