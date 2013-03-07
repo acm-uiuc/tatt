@@ -107,7 +107,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'main.context_processors.login_modal_form',
-	'main.context_processors.baseurl',
 )
 
 MIDDLEWARE_CLASSES = (
