@@ -7,10 +7,6 @@ body
     height: 100%;
 }
 
-body {
-	background:#F0F0E0;
-}
-
 .top_buttons {
   margin-top: 5px;
 }
@@ -49,7 +45,7 @@ body {
     height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
-    margin: 0 auto ($footerHeight+$thingsHeight)*-1;
+    margin: 0 auto (-1)*($footerHeight+$thingsHeight);
 }
 
 /* Set the fixed height of the footer */
