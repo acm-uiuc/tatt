@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
@@ -9,10 +10,15 @@ from main.forms import *
 
 @csrf_protect
 def index(request):
+
     c = RequestContext(request, {
         'page_title' : 'index',
 		'badcred' : False
     })
+
+    c['homepage'] = True
+    if request.get_full_path().startswith('/?next='):
+        c['badcred'] = True
 
     if request.method == 'POST':
         c['badcred'] = True
@@ -20,7 +26,6 @@ def index(request):
         if login_form.is_valid():
             user_data = login_form.cleaned_data
             user = authenticate(username=user_data['username'], password=user_data['password'])
-            print user_data['username'] + " " + user_data['password']
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -68,6 +73,7 @@ def userpage(request):
         })
     return render_to_response('user_page.html', c)
 
+@login_required()
 def items(request):
     if request.method == 'GET':
         #TODO: parse search string and show new items
@@ -80,7 +86,7 @@ def items(request):
 def item_info(request, item_id):
     try:
         item =  Item.objects.get(pk=item_id)
-    except Items.DoesNotExist:
+    except Item.DoesNotExist:
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
     return render_to_response('itemDetail.html', {'item' : item} )

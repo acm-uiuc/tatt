@@ -28,62 +28,62 @@
     <body>
         <div id="wrap">
             <!-- Login Button -->
-            <div class="row" id="page_header">
-                <div  id="login_buttons" class="span3 offset10">
-                    {% if user.is_anonymous %}
-                    <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
-                    <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
-                    {% else %}
-                    Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary">Logout</a>
-                    {% endif %}
-                </div>
-            </div>
+            <div class="container">
+                <div id="page_header" class="row">
+                    <div class="span9 top_buttons">
+                        {% if not homepage %}
+                        <a href="/" role="button" class="btn-large btn-primary">Home</a>
+                        {% elif homepage and user.is_active %}
+                        <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
+                        {% endif %}
+                        {%  block contextButtons %}
 
-            <div id="space"></div>
-            <!-- Main Part -->
-            <div class="container-fluid">
-                <div id="content" class="span11 offset1">
-                    <!-- Modal for the log in -->
-                    {% block modals %}
-                    {% if user.is_anonymous %}
-                        <!-- Modal for the log in -->
-                        <div id="logInModal" class="modal hide fade">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                            </div>
-                            {% load crispy_forms_tags %}
-                            {% crispy login_form %}
-                            <!--
-                            <form class="form-horizontal">
-                                <div class="modal-body">
-                                    <div class="control-group">
-                                        <label class="control-label" for="name">Username:</label>
-                                        <input id="name" type="text" placeholder="Username">
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="password">Password:</label>
-                                        <input id="password" type="text" placeholder="Password">
-                                    </div>    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" type="submit">Login</button>
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                </div>
-                            </form>
-                            -->
-                        </div>
-                    {% endif %}
-                    {% endblock %}
-                    {% block content %}
-                    {% endblock %}
+                        {%  endblock %}
                     </div>
+                    <div class="span3 top_buttons pull-right">
+                        <div class="pull-right">
+                        {% if user.is_anonymous %}
+                        <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
+                        <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
+                        {% else %}
+                        Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary btn-danger">Logout</a>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="main_section" class="row-fluid">
+                    <!-- Main Part -->
+
+                    <div class="row-fluid">
+                        <div id="content" class="span12">
+                            <!-- Modal for the log in -->
+                            {% block modals %}
+                            {% if user.is_anonymous %}
+                            <!-- Modal for the log in -->
+                            <div id="logInModal" class="modal hide fade">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                </div>
+                                {% load crispy_forms_tags %}
+                                {% crispy login_form %}
+                            </div>
+                        {% endif %}
+                        {% endblock %}
+                        {% block content %}
+                        {% endblock %}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
         <div id="footer">
             <div class="container">
                 <div id="copyright" class="row">
-                    <div class="offset1">
+                    <div class="span12">
                         <p class="muted credit">&copy; {% now "Y" %} Track all the Things team</p>
                     </div>
                 </div>
