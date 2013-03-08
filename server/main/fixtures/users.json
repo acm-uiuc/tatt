@@ -1,0 +1,290 @@
+[
+	{
+		"model": "auth.user",
+		"pk": 1,
+		"fields": {
+			"username": "acm",
+			"first_name": "ACM",
+			"last_name": "UIUC",
+			"is_active": true,
+			"is_superuser": true, 
+			"is_staff": true,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "em@ail.fake",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 2,
+		"fields": {
+			"username": "admin",
+			"first_name": "TATT",
+			"last_name": "Admin",
+			"is_active": true,
+			"is_superuser": true, 
+			"is_staff": true,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "em@ail.fake",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 4,
+		"fields": {
+			"username": "bnooka2",
+			"first_name": "Bhargav",
+			"last_name": "Nookala",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "bnooka2@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 5,
+		"fields": {
+			"username": "proctor4",
+			"first_name": "Ciara",
+			"last_name": "Proctor",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "proctor4@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 6,
+		"fields": {
+			"username": "reizman1",
+			"first_name": "Cait",
+			"last_name": "Reizman",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "reizman1@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 7,
+		"fields": {
+			"username": "nugent5",
+			"first_name": "Dylan",
+			"last_name": "Nugent",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "nugent5@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 8,
+		"fields": {
+			"username": "kudeki",
+			"first_name": "Mo",
+			"last_name": "Kudeki",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "kudeki@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 9,
+		"fields": {
+			"username": "amhendr2",
+			"first_name": "Alex",
+			"last_name": "Hendrix",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "amhendr2@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 10,
+		"fields": {
+			"username": "radon1",
+			"first_name": "Hubert",
+			"last_name": "Radon",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "radon1@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 11,
+		"fields": {
+			"username": "kadich1",
+			"first_name": "Tim",
+			"last_name": "Kadich",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "kadich1@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 12,
+		"fields": {
+			"username": "osacky1",
+			"first_name": "Nelson",
+			"last_name": "Osacky",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "osacky1@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 13,
+		"fields": {
+			"username": "lange7",
+			"first_name": "Kevin",
+			"last_name": "Lange",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "lange7@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 14,
+		"fields": {
+			"username": "ddcross2",
+			"first_name": "Eric",
+			"last_name": "Parsons",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "ddcross2@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 15,
+		"fields": {
+			"username": "ecparso2",
+			"first_name": "Eric",
+			"last_name": "Parsons",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "ecparso2@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 16,
+		"fields": {
+			"username": "hiremat1",
+			"first_name": "Vinay",
+			"last_name": "Hiremath",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "hiremat1@illinois.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 17,
+		"fields": {
+			"username": "ntabick2",
+			"first_name": "Nick",
+			"last_name": "Tabick",
+			"is_active": true,
+			"is_superuser": false, 
+			"is_staff": false,
+			"last_login": "2013-03-07T21:51:43",
+			"groups": [],
+			"user_permissions": [],
+			"password": "pbkdf2_sha256$10000$EZoEZpVT7HsD$tGXU56VOZDoYLH05gKSY2E+EIIQs6maEwCciSfxlxYQ=",
+			"email": "ntabick2@uiuc.edu",
+			"date_joined": "2013-03-02T18:34:37"
+		}
+	}
+]

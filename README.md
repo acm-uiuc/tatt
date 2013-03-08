@@ -36,6 +36,7 @@ Now that you have all the software installed, now you need to do the following
 the first time you run the project
 * cd ~/tatt/server
 * python manage.py syncdb
+* python manage.py loaddata main/fixtures/attributes.json main/fixtures/attributevalues.json main/fixtures/items.json main/fixtures/itemtypes.json main/fixtures/users.json
 * python manage.py collectstatic
 * python manage.py runserver
 
@@ -47,10 +48,13 @@ While the server is running, you can go to 127.0.0.1:8000 in your browser to tes
 it.  To stop the server, just press Ctrl-C.
 
 Whenever there are database schema changes you will need to re-run the
-syncdb line.
+syncdb line, and you should follow that up with the loaddata line.
+
+Unfortunately, the users.json will clobber any new administrative user you might
+have made.  The administrative user is "acm" (lowercase) and its password is "password"
 
 Whenever new static files (images, css, javascript, etc) are added you will need
-to re-run the collecstatic command.  We will look at changes in the future so
+to re-run the collectstatic command.  We will look at changes in the future so
 this is not needed on dev environments.
 
 The command "compass watch" will check for when the files in ~/tatt/compass/sass

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block contextButtons %}
-    <a href="/additem/" role="button" class="btn-large btn-primary btn-success">Add Items</a>
-{% endblock %}
 
 {% block content %}
     <div class="row-fluid">
         <div class="span12">
+            <div class="pull-left">
+                <a href="/additem/" role="button" class="btn btn-success">Add Item</a>
+                <a href="#ResetAccountedModal" role="button" class="btn btn-warning" data-toggle="modal">Mark Unaccounted</a>
+            </div>
             <div id="itemListFilter" class="pull-right">
                 <input type="text" id="search" placeholder="Type to search">
             </div>
@@ -16,7 +17,7 @@
             <table id="itemList" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Id</th>
                         <th>Item Type</th>
                         <th>Name</th>
                         <th>Location</th>
@@ -36,12 +37,58 @@
                         <td>{{ item.location }}</td>
                         <td>{{ item.due_date}}</td>
                         <td>{{ item.checked_out_by }}</td>
-                        <td>{{ item.last_accounted_for }}</td>
-                        <td>{{ item.can_checkout }}</td>
+                        {% if not item.is_accounted_for %}
+                        <td id="accountedFor{{ item.pk }}">
+                            <span class="not_accounted_for">
+                                {{ item.last_accounted_for }}
+                                <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+                                    <i  class="icon-ok-circle"></i>
+                                </a>
+                            </span>
+                        </td>
+                        {% else %}
+                        <td id="accountedFor{{ item.pk }}">
+                            <span class="is_accounted_for">
+                                {{ item.last_accounted_for }}
+                                <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+                                    <i  class="icon-remove-circle"></i>
+                                </a>
+                            </span>
+                        </td>
+                        {% endif %}
+                        <td>
+                            {% if item.can_checkout %}
+                            Yes
+                            {% else %}
+                            No
+                            {% endif %}
+                        </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <!-- Modal for the log in -->
+    <div id="ResetAccountedModal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        </div>
+        <div id="ResetAccountModalBody" class="modal-body">
+            <p>Warning: You are about to mark all items as being not accounted for.  Do you wish to continue?</p>
+            <br />
+            <div id="ResetAccountModalButtons">
+                <div class="pull-left">
+                    <a href="/toggleAccounted/" class="btn-warning btn-large">Yes</a>
+                </div>
+                <div class="pull-right">
+                    <a href type="button" class="btn-large btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -58,5 +105,9 @@
                 return !~text.indexOf(val);
             }).hide();
         });
+
+        function toggleAccountedForStatus(itemID) {
+            $('#accountedFor'+itemID).load("/toggleAccounted/" + itemID);
+        }
     </script>
 {% endblock %}

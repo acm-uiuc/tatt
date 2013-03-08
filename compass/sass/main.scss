@@ -11,6 +11,7 @@ body
   margin-top: 5px;
 }
 
+
 #allTheThingsContainer {
 	position:relative;
 	float:right;
@@ -43,6 +44,13 @@ body
 
 #page_header {
   height: 100px;
+
+
+}
+
+#siteMenu {
+    height: 50px;
+
 }
 
 /* Wrapper for page content to push down footer */
@@ -73,6 +81,32 @@ body
 
 .container .credit {
     margin: 20px 0;
+}
+
+.not_accounted_for {
+    font-weight:bold;
+    color: #ff0000;
+}
+
+.is_accounted_for {
+    font-weight:bold;
+    color: #32cd32;
+}
+
+#ResetAccountModal {
+    min-height: 300px;
+}
+
+#ResetAccountModalBody {
+    padding:15px 0 25px 15px;
+}
+
+#ResetAccountModalButtons {
+    width: 100%;
+}
+
+.no-margins {
+    margin: 0px;
 }
 
 /* Welcome to Compass.

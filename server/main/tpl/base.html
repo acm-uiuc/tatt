@@ -27,29 +27,44 @@
             <!-- Login Button -->
 			<div class="container">
                 <div id="page_header" class="row">
-                    <div class="span9 top_buttons">
-                        {% if not homepage %}
-                        <a href="/" role="button" class="btn-large btn-primary">Home</a>
-                        {% elif homepage and user.is_active %}
-                        <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
-                        <a href="/avail_items/" role="button" class="btn-large btn-primary">Available Items</a> 
-                        {% else %}
-                        <a href="/about/" role="button" class="btn-large btn-primary">About</a>
-                        {% endif %}
-                        {% block contextButtons %}
+                    <div class="span12">
+                        <div id="siteMenu" class="row">
+                            <div class="span9 top_buttons">
+                                {% if not homepage %}
+                                <a href="/" role="button" class="btn-large btn-primary">Home</a>
+                                {% elif homepage and not user.is_active %}
+                                <a href="/about/" role="button" class="btn-large btn-primary">About</a>
+                                {% endif %}
+                                {% if user.is_active %}
+                                    <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
+                                    <a href="/avail_items/" role="button" class="btn-large btn-primary">
+                                        Checkout {% if checkout_count > 0 %}({{ checkout_count }}){% endif %}
+                                    </a>
+                                {% endif %}
 
-                        {% endblock %}
-                    </div>
-                    <div class="span3 top_buttons pull-right">
-                        <div class="pull-right">
-                            {% if user.is_anonymous %}
-                            <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
-                            <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
-                            {% else %}
-                            Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary btn-danger">Logout</a>
-                            {% endif %}
+                            </div>
+                            <div class="span3 top_buttons pull-right">
+                                <div class="pull-right">
+                                    {% if user.is_anonymous %}
+                                    <a href="#logInModal" role="button" class="btn-large btn-primary" data-toggle="modal">Login</a>
+                                    <a href="/register/" role="button" class="btn-primary btn-success btn-large">Register</a>
+                                    {% else %}
+                                    Hi, {{user.first_name}} <a href="/logout" role="button" class="btn-large btn-primary btn-danger">Logout</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="contextMenu" class="row">
+                            <div class="span12">
+                                <div class="pull-left">
+                                    {% block contextButtons %}
+
+                                    {% endblock %}
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div id="main_section" class="row-fluid">

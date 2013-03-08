@@ -3,25 +3,36 @@
 {% block contextButtons %}
 {% endblock %}
 
-{% block content %}
+{% block content %} 
     <div class="row-fluid">
         <div class="span12">
-            <div id="itemDetails">
-                <p>Name: {{ item }}
-                <p>Location: {{ item.location }}
-                <p>Type: {{ item.item_type }}
-                <p>Owner: {{ item.owner_id }}
-                <p>Checked out by: {{ item.checked_out_by }}
-                {% for attr_val in attr_vals %}
-                    <p>{{ attr_val.attribute.name }}: {{attr_val.value }}
-                {% endfor %}
+            <div id="itemDetails" style="margin-bottom: 50px; margin-top: 50px">
+                <table style="font-size: 18px; margin-top: 5px">
+                    <tbody style="margin-bottom: 50px;">
+                        <tr><td><b>Name:</b></td> <td style="min-width: 10px"></td> <td>{{ item }}</td></tr>
+                        <tr><td><b>Location:</b></td> <td></td> <td>{{ item.location }}</td></tr>
+                        <tr><td><b>Type:</b></td> <td></td> <td>{{ item.item_type }}</td></tr>
+                        <tr><td><b>Owner:</b></td> <td></td> <td>{{ item.owner_id }}</td></tr>
+                        <tr><td><b>Checked out by:</b></td> <td></td> <td>{{ item.checked_out_by }}</td></tr>
+                        <tr><td><b>Attributes:</b></td></tr>
+                        {% for attr_val in attr_vals %}
+                            <tr><td><i>{{ attr_val.attribute.name }}:</i></td> <td></td> <td>{{attr_val.value }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    {% if item.can_checkout and not owner %}
+    {% if checkedoutto %}
+    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In</a>
+    {% elif owner and not item.can_checkout %}
+    <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Available</a>
+    {% elif owner and item.can_checkout %}
+    <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Unavailable</a>
+    {% elif item.can_checkout and not owner %}
     <a href="/checkout/{{ item.id }}" role="button" class="btn-large btn-primary">Checkout</a>
     {% elif owner %}
-    <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Available</a>
+    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In</a>
     {% endif %}
 
 {% endblock %}

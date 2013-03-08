@@ -56,7 +56,21 @@ class ItemTypeForm(forms.ModelForm):
         super(ItemTypeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Item Type'))
+        #self.helper.add_input(Submit('submit', 'Add Item Type'))
+
+        self.helper.layout = Layout(
+            'name',
+            ButtonHolder(
+                Submit('submit', 'Add Item Type')
+            )
+            )
+
+#    def clean(self):
+#        form_get_name = self.cleaned_data.get('name')
+#        name = ItemType.objects.all().filter(name=form_get_name)
+#        if name:
+#            raise forms.ValidationError("Name: " + form_get_name + " already exists!")
+#        return self.cleaned_data
 
     class Meta:
         model = ItemType
@@ -67,7 +81,16 @@ class AttributeValueForm(forms.ModelForm):
         super(AttributeValueForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Attribute'))
+        #self.helper.add_input(Submit('submit', 'Add Attribute'))
+
+        self.helper.layout = Layout(
+            'item',
+            'attribute',
+            'value',
+            ButtonHolder(
+                Submit('submit', 'Add Attribute')
+            )
+            )
 
     class Meta:
         model = AttributeValue
@@ -78,7 +101,15 @@ class AttributeForm(forms.ModelForm):
         super(AttributeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Attribute'))
+        #self.helper.add_input(Submit('submit', 'Add Attribute'))
+
+        self.helper.layout = Layout(
+            'name',
+            'item_type',
+            ButtonHolder(
+                Submit('submit', 'Add Attribute')
+            )
+            )
 
     def clean(self):
         form_get_name = self.cleaned_data.get('name')
@@ -90,7 +121,7 @@ class AttributeForm(forms.ModelForm):
 
     class Meta:
         model = Attribute
-        fields = ('name',)
+        fields = ('name', 'item_type')
 
 
 class UserForm(forms.ModelForm):

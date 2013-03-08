@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import login, logout, authenticate
 from main.models import *
 from main.forms import *
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 
 @csrf_protect
 def index(request):
@@ -97,13 +97,37 @@ def items(request):
     return render_to_response('items.html', c)
 
 @login_required()
+def toggle_accounted_all(request):
+    items = Item.objects.filter(owner_id = request.user)
+    for item in items:
+        item.is_accounted_for = False
+        item.save()
+    return redirect('/items/')
+
+@login_required()
+def toggle_accounted(request, item_id):
+    item = Item.objects.get(owner_id = request.user, id = item_id )
+    if item is None:
+        return
+    item.is_accounted_for = not item.is_accounted_for
+    if item.is_accounted_for:
+        item.last_accounted_for = datetime.now().date()
+    item.save()
+    c = RequestContext(request, {'item' : item})
+    return render_to_response('toggle_accounted_for.html', c)
+
+
+
+
+@login_required()
 def avail_items(request):
     if request.method == 'GET':
         #TODO: parse search string and show new items?
         pass
 
-    items = Item.objects.filter(can_checkout = True).exclude(owner_id = request.user)
-    c = RequestContext(request, {'items' : items})
+    checkedoutitems = Item.objects.filter(checked_out_by = request.user)
+    items = Item.objects.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
+    c = RequestContext(request, {'checkedoutitems' : checkedoutitems, 'items' : items})
     return render_to_response('avail_items.html', c)
 
 def item_info(request, item_id):
@@ -116,10 +140,15 @@ def item_info(request, item_id):
 
     #checks to see if the user is the owner
     owner = False
+    checkedoutto = False
     if(request.user == item.owner_id):
         owner = True
+    if(request.user == item.checked_out_by):
+        checkedoutto = True
+    if not (item.can_checkout or owner):
+        return HttpResponseRedirect("/")
 
-    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner })
+    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner, 'checkedoutto' : checkedoutto })
     return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
@@ -160,6 +189,23 @@ def checkout(request, item_id):
     return render_to_response('checkout.html', c)
 
 @login_required()
+def checkin(request, item_id):
+    try:
+        item =  Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        #TODO: print out an error message or something about the item not exhisting
+        raise Http404
+
+    item.checked_out_by = None
+    item.last_accounted_for = date.today()
+    #TODO: add a option to set how long people are allowed to borrow for
+    item.due_date = None
+    item.save() 
+    c = RequestContext(request, {'item' : item })
+    return HttpResponseRedirect('/items')
+
+
+@login_required()
 def make_avail(request, item_id):
     try:
         item = Item.objects.get(pk=item_id)
@@ -167,18 +213,9 @@ def make_avail(request, item_id):
         #TODO: error message here
         raise Http404
 
-    if request.method == 'POST':
-        make_avail_form = MakeAvailableForm(request.POST)
-        if make_avail_form.is_valid():
-            item.can_checkout = True
-            item.save()
-            return HttpResponseRedirect('/items')
-        else:
-            print "cannot make available"
-    else:
-        make_avail_form = MakeAvailableForm()
-    c = RequestContext(request, { 'make_avail_form' : make_avail_form, 'item' : item })
-    return render_to_response('make_avail.html', c)
+    item.can_checkout = not item.can_checkout
+    item.save()
+    return HttpResponseRedirect('/items')
 
 ##### Views that are used to add to the database #####
 @login_required()
@@ -194,6 +231,7 @@ def add_item(request):
             new_item.location = item_form['location']
             new_item.owner_id = request.user # item_form['owner_id']
             new_item.has_photo = False
+            new_item.can_checkout = False
             new_item.save()
             print "Item added to database"
             return redirect('/items/')
@@ -206,41 +244,48 @@ def add_item(request):
 
 def add_item_type(request):
     if request.method == 'POST':
-        item_type_form = ItemTypeForm(request)
+        item_type_form = ItemTypeForm(request.POST)
         if item_type_form.is_valid():
-            item_type_form = item_type_form.cleaned_data
             #TODO: Test that this works if not we'll need to pull each item from the form
-            new_type = ItemType(item_type_form)
+            new_type = ItemType()
+            new_type.name = item_type_form.cleaned_data['name']
+            new_type.save()
             print "ItemType added to database"
         else:
             print "item_type_form not valid"
+        return HttpResponseRedirect("/additem/")
     else:
-        HttpResponseRedirect("/items")
+        item_type_form = ItemTypeForm()
+    c = RequestContext(request, { 'item_type_form' : item_type_form })
+    return render_to_response("add_item_type.html", c)
 
 def add_attribute(request):
     if request.method == 'POST':
-        attr_form = AttributeForm(request)
+        attr_form = AttributeForm(request.POST)
         if attr_form.is_valid():
-            attr_form = attr_form.cleaned_data
             #TODO: Like item, verify this works
-            attr = Attribute(attr_form)
-            attr.save() 
+            new_attr = Attribute()
+            new_attr.name = attr_form.cleaned_data['name']
+            new_attr.item_type = attr_form.cleaned_data['item_type']
+            new_attr.save() 
             print "Attribute added to database"
         else:
             print "attr_form is not valid!"
+        return HttpResponseRedirect("/additem/")
     else:
-        HttpResponseRedirect("/items")
+        attr_form = AttributeForm()
+    c = RequestContext(request, { 'attr_form' : attr_form })
+    return render_to_response("add_attribute.html", c)
 
 def add_attribute_value(request):
     if request.method == 'POST':
-        attr_val_form = AttributeValueForm(request)
+        attr_val_form = AttributeValueForm(request.POST)
         if attr_val_form.is_valid():
-            attr_val_form = attr_val_form.cleaned_data
             #TODO: Like item, verify this works
-            attr_val = AttributeValue(attr_val_form)
-            attr_val.save()
+            new_attr_val = AttributeValue()
+            new_attr_val.attribute = attr_val_form.cleaned_data['attribute']
+            new_attr_val.value = attr_val_form.cleaned_data['value']
             print "Attribute value added to database"
         else:
             print "attr_val_form is not valid!"
-    else:
-        HttpResponseRedirect("/items")
+    return HttpResponseRedirect("/additem/")
