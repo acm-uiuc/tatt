@@ -9,9 +9,9 @@ class Item(models.Model):
     owner_id = models.ForeignKey(User, related_name='owner_id')
     checked_out_by = models.ForeignKey(User, related_name='checked_out_by', null=True, blank=True)
     last_accounted_for = models.DateField(auto_now_add = True)
+    is_accounted_for = models.BooleanField(default = True)
     has_photo = models.BooleanField()
     can_checkout = models.BooleanField(default = False)
-
 
     def __unicode__(self):
         return self.name
