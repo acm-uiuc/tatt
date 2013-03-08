@@ -36,17 +36,17 @@ class ItemForm(forms.ModelForm):
         super(ItemForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        #self.helper.add_input(Submit('submit', 'Add Item'))
-
         self.helper.layout = Layout(
-            'item_type',
-            'name',
-            'location',
-            ButtonHolder(
-                Submit('submit', 'Submit')
+                Field('item_type',onchange="load_add_items_form()"),
+                Div(id="additemtype"),
+                Div(id="additemform"),
+                Div(
+                     'name',
+                     'location',
+                ),
+                Submit('submit', 'Add Item')
             )
-            )
-
+        #self.helper.add_input(Submit('submit', 'Add Item'))
     class Meta:
         model = Item
         fields = ('item_type', 'name', 'location')

@@ -74,6 +74,18 @@ def userpage(request):
         })
     return render_to_response('user_page.html', c)
 
+def ajax(request, type1, data):
+    if request.method == 'GET':
+        if type1 == 'item_type':
+            itemType = ItemType.objects.all().filter(id=data)
+            print type1
+            print itemType
+            attributes = Attribute.objects.all().filter(item_type=itemType)
+            c = RequestContext(request, {'attributes' : attributes})
+            return render_to_response('ajax.html', c)
+    
+    return
+
 @login_required()
 def items(request):
     if request.method == 'GET':

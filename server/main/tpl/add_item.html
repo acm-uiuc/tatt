@@ -6,3 +6,16 @@
 	    {% load crispy_forms_tags %}
 	    {% crispy item_form %}
 {% endblock %}
+
+
+{% block pageJavascript %}
+<script type="text/javascript">
+	function load_add_items_form(){
+		var item_type = $("select[name='item_type']").val();
+		if(item_type != ""){
+			$("#additemform").load("/ajax/item_type/" + item_type);
+		}
+	}
+</script>
+{% endblock %}
+
