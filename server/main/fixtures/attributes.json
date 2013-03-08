@@ -1,0 +1,74 @@
+[
+	{
+		"model": "main.attribute",
+		"pk": 1,
+		"fields": {
+			"name": "ISBN-13",
+			"item_type": 1
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 2,
+		"fields": {
+			"name": "Page Count",
+			"item_type": 1
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 3,
+		"fields": {
+			"name": "Author",
+			"item_type": 1
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 4,
+		"fields": {
+			"name": "Publisher",
+			"item_type": 1
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 5,
+		"fields": {
+			"name": "ISBN-10",
+			"item_type": 1
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 6,
+		"fields": {
+			"name": "Processor",
+			"item_type": 3
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 7,
+		"fields": {
+			"name": "Memory",
+			"item_type": 3
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 8,
+		"fields": {
+			"name": "Operating System",
+			"item_type": 3
+		}
+	},
+	{
+		"model": "main.attribute",
+		"pk": 9,
+		"fields": {
+			"name": "Storage Capacity",
+			"item_type": 3
+		}
+	}
+]
