@@ -37,7 +37,9 @@
                                 {% endif %}
                                 {% if user.is_active %}
                                     <a href="/items/" role="button" class="btn-large btn-primary">My Items</a>
-                                    <a href="/avail_items/" role="button" class="btn-large btn-primary">Available Items</a>
+                                    <a href="/avail_items/" role="button" class="btn-large btn-primary">
+                                        Checkout {% if checkout_count > 0 %}({{ checkout_count }}){% endif %}
+                                    </a>
                                 {% endif %}
 
                             </div>
