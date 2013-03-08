@@ -90,7 +90,8 @@ def item_info(request, item_id):
     except Item.DoesNotExist:
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
-    c = RequestContext(request, {'item' : item})
+    attr_vals = AttributeValue.objects.all().filter(item=item)
+    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals })
     return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
