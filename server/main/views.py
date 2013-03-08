@@ -205,6 +205,7 @@ def add_item(request):
             new_item.location = item_form['location']
             new_item.owner_id = request.user # item_form['owner_id']
             new_item.has_photo = False
+            new_item.can_checkout = False
             new_item.save()
             print "Item added to database"
             return redirect('/items/')

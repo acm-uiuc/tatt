@@ -19,15 +19,15 @@
         </div>
     </div>
     {% if checkedoutto %}
-    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In</a>
-    {% elif owner and item.can_checkout == False %}
+    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In A</a>
+    {% elif owner and not item.can_checkout %}
     <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Available</a>
-    {% elif owner and item.can_checkout == True %}
+    {% elif owner and item.can_checkout %}
     <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Unavailable</a>
     {% elif item.can_checkout and not owner %}
     <a href="/checkout/{{ item.id }}" role="button" class="btn-large btn-primary">Checkout</a>
     {% elif owner %}
-    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In</a>
+    <a href="/checkin/{{ item.id }}" role="button" class="btn-large btn-primary">Check In B</a>
     {% endif %}
 
 {% endblock %}
