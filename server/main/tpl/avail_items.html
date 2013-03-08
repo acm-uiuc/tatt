@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block contextButtons %}
+    <a href="/additem/" role="button" class="btn-large btn-primary btn-success">Add Items</a>
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div id="itemListFilter" class="pull-right">
+                <input type="text" id="search" placeholder="Type to search">
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <table id="itemList" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item Type</th>
+                        <th>Name</th>
+                        <th>Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.pk }}</td>
+                        <td>{{ item.item_type.name }}</td>
+                        <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
+                        <td>{{ item.owner_id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pageJavascript %}
+    <!-- The following table filter script is from http://jsfiddle.net/7BUmG/2/ !-->
+    <script type="text/javascript">
+        var $rows = $('#itemList tbody tr');
+        $('#search').keyup(function() {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+            $rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
+{% endblock %}
