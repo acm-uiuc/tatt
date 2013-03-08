@@ -1,0 +1,16 @@
+[
+	{
+		"model": "main.itemtype",
+		"pk": 1,
+		"fields": {
+			"name": "Book"
+		}
+	},
+	{
+		"model": "main.itemtype",
+		"pk": 3,
+		"fields": {
+			"name": "Computer"
+		}
+	}
+]
