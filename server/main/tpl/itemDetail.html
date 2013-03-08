@@ -18,7 +18,11 @@
             </div>
         </div>
     </div>
+    {% if item.can_checkout and not owner %}
     <a href="/checkout/{{ item.id }}" role="button" class="btn-large btn-primary">Checkout</a>
+    {% elif owner %}
+    <a href="/make_avail/{{ item.id }}" role="button" class="btn-large btn-primary">Make Available</a>
+    {% endif %}
 
 {% endblock %}
 

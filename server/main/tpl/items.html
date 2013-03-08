@@ -23,6 +23,7 @@
                         <th>Due Date</th>
                         <th>Checked Out By</th>
                         <th>Last Accounted For</th>
+                        <th>Can Checkout</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,7 @@
                         <td>{{ item.due_date}}</td>
                         <td>{{ item.checked_out_by }}</td>
                         <td>{{ item.last_accounted_for }}</td>
+                        <td>{{ item.can_checkout }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
