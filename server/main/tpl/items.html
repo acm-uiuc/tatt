@@ -23,6 +23,7 @@
                         <th>Due Date</th>
                         <th>Checked Out By</th>
                         <th>Last Accounted For (<a href="#ResetAccountedModal" data-toggle="modal">clear</a>)</th>
+                        <th>Can Checkout</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,8 @@
                         {% endif %}
                             {{ item.last_accounted_for }}
                         </td>
+                        <td>{{ item.can_checkout }}</td>
+
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -84,6 +84,16 @@ def items(request):
     c = RequestContext(request, {'items' : items})
     return render_to_response('items.html', c)
 
+@login_required()
+def avail_items(request):
+    if request.method == 'GET':
+        #TODO: parse search string and show new items?
+        pass
+
+    items = Item.objects.filter(can_checkout = True).exclude(owner_id = request.user)
+    c = RequestContext(request, {'items' : items})
+    return render_to_response('avail_items.html', c)
+
 def item_info(request, item_id):
     try:
         item =  Item.objects.get(pk=item_id)
@@ -91,7 +101,15 @@ def item_info(request, item_id):
         #TODO: print out an error message or something about the item not exhisting
         raise Http404
     attr_vals = AttributeValue.objects.all().filter(item=item)
-    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals })
+
+    #checks to see if the user is the owner
+    owner = False
+    if(request.user == item.owner_id):
+        owner = True
+    if not (item.can_checkout or owner):
+        return HttpResponseRedirect("/")
+
+    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner })
     return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
@@ -130,6 +148,27 @@ def checkout(request, item_id):
         checkout_form = CheckoutForm()
     c = RequestContext(request, { 'checkout_form' : checkout_form, 'item' : item })
     return render_to_response('checkout.html', c)
+
+@login_required()
+def make_avail(request, item_id):
+    try:
+        item = Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        #TODO: error message here
+        raise Http404
+
+    if request.method == 'POST':
+        make_avail_form = MakeAvailableForm(request.POST)
+        if make_avail_form.is_valid():
+            item.can_checkout = True
+            item.save()
+            return HttpResponseRedirect('/items')
+        else:
+            print "cannot make available"
+    else:
+        make_avail_form = MakeAvailableForm()
+    c = RequestContext(request, { 'make_avail_form' : make_avail_form, 'item' : item })
+    return render_to_response('make_avail.html', c)
 
 ##### Views that are used to add to the database #####
 @login_required()

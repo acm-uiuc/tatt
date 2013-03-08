@@ -10,3 +10,6 @@ server/main/static/css/print.css
 tatt_db
 *.iml
 .idea
+server/.project
+server/.pydevproject
+.sass-cache/
