@@ -7,7 +7,14 @@
     <div class="row-fluid">
         <div class="span12">
             <div id="itemDetails">
-                {{ item }}
+                <p>Name: {{ item }}
+                <p>Location: {{ item.location }}
+                <p>Type: {{ item.item_type }}
+                <p>Owner: {{ item.owner_id }}
+                <p>Checked out by: {{ item.checked_out_by }}
+                {% for attr_val in attr_vals %}
+                    <p>{{ attr_val.attribute.name }}: {{attr_val.value }}
+                {% endfor %}
             </div>
         </div>
     </div>
