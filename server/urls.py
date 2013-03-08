@@ -23,7 +23,9 @@ urlpatterns = patterns('',
     url(r'^item/(?P<item_id>\d+)/$', 'main.views.item_info'),
     url(r'^checkout/(?P<item_id>\d+)/$', 'main.views.checkout'),
     url(r'^additem/$','main.views.add_item'),
-    
+    url(r'^make_avail/(?P<item_id>\d+)/$', 'main.views.make_avail'),
+    url(r'^avail_items/$', 'main.views.avail_items'),
+
     # Search page
     url(r'^search/(?P<search_query>[a-zA-Z]+)', 'main.views.search'),
 
