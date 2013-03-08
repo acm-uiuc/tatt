@@ -39,11 +39,15 @@
                         <td>{{ item.checked_out_by }}</td>
                         {% if not item.is_accounted_for %}
                         <td class="not_accounted_for">
+                            {{ item.last_accounted_for }}
+                            <i class="icon-ok-circle"></i>
+                        </td>
                         {% else %}
                         <td class="is_accounted_for">
-                        {% endif %}
                             {{ item.last_accounted_for }}
+                            <i class="icon-remove-circle"></i>
                         </td>
+                        {% endif %}
                         <td>
                             {% if item.can_checkout %}
                             Yes
@@ -71,7 +75,7 @@
             <br />
             <div id="ResetAccountModalButtons">
                 <div class="pull-left">
-                    <a href class="btn-warning btn-large">Yes</a>
+                    <a href="/toggleAccounted/" class="btn-warning btn-large">Yes</a>
                 </div>
                 <div class="pull-right">
                     <a href type="button" class="btn-large btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</a>
