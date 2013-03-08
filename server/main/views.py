@@ -211,14 +211,18 @@ def add_item_type(request):
     if request.method == 'POST':
         item_type_form = ItemTypeForm(request.POST)
         if item_type_form.is_valid():
-            item_type_form = item_type_form.cleaned_data
             #TODO: Test that this works if not we'll need to pull each item from the form
-            new_type = ItemType(item_type_form)
+            new_type = ItemType()
+            new_type.name = item_type_form.cleaned_data['name']
+            new_type.save()
             print "ItemType added to database"
         else:
             print "item_type_form not valid"
+        return HttpResponseRedirect("/additem/")
     else:
-        HttpResponseRedirect("/items")
+        item_type_form = ItemTypeForm()
+    c = RequestContext(request, { 'item_type_form' : item_type_form })
+    return render_to_response("add_item_type.html", c)
 
 def add_attribute(request):
     if request.method == 'POST':
