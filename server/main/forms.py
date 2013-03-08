@@ -18,6 +18,19 @@ class CheckoutForm(forms.ModelForm):
         model = Item
         fields = ()
 
+class MakeAvailableForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(MakeAvailableForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        #self.helper.add_input(Submit('submit', 'Checkout'))
+    
+        self.helper.layout = Layout(ButtonHolder(Submit('submit', 'Make Available')))
+
+    class Meta:
+        model = Item
+        fields = ()
+
 class ItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ItemForm, self).__init__(*args, **kwargs)
