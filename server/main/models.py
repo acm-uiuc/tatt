@@ -12,6 +12,7 @@ class Item(models.Model):
     has_photo = models.BooleanField()
     can_checkout = models.BooleanField(default = False)
 
+
     def __unicode__(self):
         return self.name
 

@@ -11,7 +11,7 @@ class CheckoutForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
         #self.helper.add_input(Submit('submit', 'Checkout'))
-
+    
         self.helper.layout = Layout(ButtonHolder(Submit('submit', 'Checkout')))
 
     class Meta:
