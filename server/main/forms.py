@@ -10,7 +10,9 @@ class CheckoutForm(forms.ModelForm):
         super(CheckoutForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Checkout'))
+        #self.helper.add_input(Submit('submit', 'Checkout'))
+
+        self.helper.layout = Layout(ButtonHolder(Submit('submit', 'Checkout')))
 
     class Meta:
         model = Item
@@ -21,7 +23,16 @@ class ItemForm(forms.ModelForm):
         super(ItemForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Item'))
+        #self.helper.add_input(Submit('submit', 'Add Item'))
+
+        self.helper.layout = Layout(
+            'item_type',
+            'name',
+            'location',
+            ButtonHolder(
+                Submit('submit', 'Submit')
+            )
+            )
 
     class Meta:
         model = Item
@@ -97,7 +108,6 @@ class UserForm(forms.ModelForm):
             ButtonHolder(
                 Submit('submit', 'Submit')
             ),
-            Hidden('formtype', 'register')
         )
 
     def clean(self):
