@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block contextButtons %}
-    <a href="/additem/" role="button" class="btn-large btn-primary btn-success" xmlns="http://www.w3.org/1999/html">Add Items</a>
-{% endblock %}
 
 {% block content %}
     <div class="row-fluid">
         <div class="span12">
+            <div class="pull-left">
+                <a href="/additem/" role="button" class="btn btn-success">Add Item</a>
+                <a href="#ResetAccountedModal" role="button" class="btn btn-warning" data-toggle="modal">Mark Unaccounted</a>
+            </div>
             <div id="itemListFilter" class="pull-right">
                 <input type="text" id="search" placeholder="Type to search">
             </div>
@@ -22,7 +23,7 @@
                         <th>Location</th>
                         <th>Due Date</th>
                         <th>Checked Out By</th>
-                        <th>Last Accounted For (<a href="#ResetAccountedModal" data-toggle="modal">clear</a>)</th>
+                        <th>Last Accounted For</th>
                         <th>Can Checkout</th>
                     </tr>
                 </thead>
@@ -43,7 +44,13 @@
                         {% endif %}
                             {{ item.last_accounted_for }}
                         </td>
-                        <td>{{ item.can_checkout }}</td>
+                        <td>
+                            {% if item.can_checkout %}
+                            Yes
+                            {% else %}
+                            No
+                            {% endif %}
+                        </td>
 
                     </tr>
                     {% endfor %}
