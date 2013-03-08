@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^addattr/$','main.views.add_attribute'),
     url(r'^additemtype/$','main.views.add_item_type'),
     url(r'^make_avail/(?P<item_id>\d+)/$', 'main.views.make_avail'),
+    url(r'^ajax/(?P<type1>[a-z_A-Z]+)/(?P<data>[0-9]+)/$', 'main.views.ajax'),
     url(r'^avail_items/$', 'main.views.avail_items'),
     url(r'^checkin/(?P<item_id>\d+)/$', 'main.views.checkin'),
 

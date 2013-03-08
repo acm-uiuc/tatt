@@ -60,6 +60,7 @@ body
     height: 100%;
     /* Negative indent footer by it's height */
     margin: 0 auto (-1)*($footerHeight+$thingsHeight);
+    padding-bottom:40px;
 }
 
 /* Set the fixed height of the footer */

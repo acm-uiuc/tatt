@@ -2,9 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.core.context_processors import csrf
+from django.core import serializers
 from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth import login, logout, authenticate
+from django.utils import simplejson
 from main.models import *
 from main.forms import *
 from datetime import timedelta, date, datetime
@@ -73,6 +75,15 @@ def userpage(request):
             'page_title' : 'user_page',
         })
     return render_to_response('user_page.html', c)
+
+def ajax(request, type1, data):
+    if request.method == 'GET':
+        if type1 == 'item_type':
+            itemType = ItemType.objects.all().filter(id=data)
+            attributes = serializers.serialize("json", Attribute.objects.all().filter(item_type=itemType))
+            return HttpResponse(attributes, mimetype='application/json')
+    
+    return
 
 @login_required()
 def items(request):
@@ -212,15 +223,25 @@ def add_item(request):
         item_form = ItemForm(request.POST)
         if item_form.is_valid():
             item_form = item_form.cleaned_data
-            #TODO: Test that this works if not we'll need to pull each item from the form
+            reqList = request.POST.getlist('attr')
+            reqList2 = request.POST.getlist('attr_pks')
             new_item = Item()
+            new_attrVals = [AttributeValue() for nothing in range(0,len(reqList))]
             new_item.item_type = item_form['item_type']
             new_item.name = item_form['name']
             new_item.location = item_form['location']
-            new_item.owner_id = request.user # item_form['owner_id']
+            new_item.owner_id = request.user
             new_item.has_photo = False
             new_item.can_checkout = False
             new_item.save()
+            i = 0
+            #relatively slow but it works for now
+            for new_attrVal in new_attrVals:
+                new_attrVal.item = new_item
+                new_attrVal.value = reqList[i]
+                new_attrVal.attribute = Attribute.objects.get(pk=reqList2[i])
+                new_attrVal.save()
+                i += 1
             print "Item added to database"
             return redirect('/items/')
         else:
