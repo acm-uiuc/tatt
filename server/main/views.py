@@ -90,8 +90,9 @@ def avail_items(request):
         #TODO: parse search string and show new items?
         pass
 
-    items = Item.objects.filter(can_checkout = True).exclude(owner_id = request.user)
-    c = RequestContext(request, {'items' : items})
+    checkedoutitems = Item.objects.filter(checked_out_by = request.user)
+    items = Item.objects.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
+    c = RequestContext(request, {'checkedoutitems' : checkedoutitems, 'items' : items})
     return render_to_response('avail_items.html', c)
 
 def item_info(request, item_id):
@@ -104,12 +105,15 @@ def item_info(request, item_id):
 
     #checks to see if the user is the owner
     owner = False
+    checkedoutto = False
     if(request.user == item.owner_id):
         owner = True
+    if(request.user == item.checked_out_by):
+        checkedoutto = True
     if not (item.can_checkout or owner):
         return HttpResponseRedirect("/")
 
-    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner })
+    c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner, 'checkedoutto' : checkedoutto })
     return render_to_response('itemDetail.html', c )
 
 def search(request, search_query):
@@ -150,6 +154,23 @@ def checkout(request, item_id):
     return render_to_response('checkout.html', c)
 
 @login_required()
+def checkin(request, item_id):
+    try:
+        item =  Item.objects.get(pk=item_id)
+    except Item.DoesNotExist:
+        #TODO: print out an error message or something about the item not exhisting
+        raise Http404
+
+    item.checked_out_by = None
+    item.last_accounted_for = date.today()
+    #TODO: add a option to set how long people are allowed to borrow for
+    item.due_date = None
+    item.save() 
+    c = RequestContext(request, {'item' : item })
+    return HttpResponseRedirect('/items')
+
+
+@login_required()
 def make_avail(request, item_id):
     try:
         item = Item.objects.get(pk=item_id)
@@ -157,18 +178,9 @@ def make_avail(request, item_id):
         #TODO: error message here
         raise Http404
 
-    if request.method == 'POST':
-        make_avail_form = MakeAvailableForm(request.POST)
-        if make_avail_form.is_valid():
-            item.can_checkout = True
-            item.save()
-            return HttpResponseRedirect('/items')
-        else:
-            print "cannot make available"
-    else:
-        make_avail_form = MakeAvailableForm()
-    c = RequestContext(request, { 'make_avail_form' : make_avail_form, 'item' : item })
-    return render_to_response('make_avail.html', c)
+    item.can_checkout = not item.can_checkout
+    item.save()
+    return HttpResponseRedirect('/items')
 
 ##### Views that are used to add to the database #####
 @login_required()
@@ -184,6 +196,7 @@ def add_item(request):
             new_item.location = item_form['location']
             new_item.owner_id = request.user # item_form['owner_id']
             new_item.has_photo = False
+            new_item.can_checkout = False
             new_item.save()
             print "Item added to database"
             return redirect('/items/')
