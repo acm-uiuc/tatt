@@ -11,6 +11,11 @@ body
   margin-top: 5px;
 }
 
+#formButtonNoBack div.form-actions {
+	background-color:transparent;
+	border-top:0px;
+}
+
 #allTheThingsContainer {
 	position:relative;
 	float:right;
