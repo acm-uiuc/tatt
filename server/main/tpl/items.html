@@ -38,14 +38,22 @@
                         <td>{{ item.due_date}}</td>
                         <td>{{ item.checked_out_by }}</td>
                         {% if not item.is_accounted_for %}
-                        <td class="not_accounted_for">
-                            {{ item.last_accounted_for }}
-                            <i class="icon-ok-circle"></i>
+                        <td id="accountedFor{{ item.pk }}">
+                            <span class="not_accounted_for">
+                                {{ item.last_accounted_for }}
+                                <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+                                    <i  class="icon-ok-circle"></i>
+                                </a>
+                            </span>
                         </td>
                         {% else %}
-                        <td class="is_accounted_for">
-                            {{ item.last_accounted_for }}
-                            <i class="icon-remove-circle"></i>
+                        <td id="accountedFor{{ item.pk }}">
+                            <span class="is_accounted_for">
+                                {{ item.last_accounted_for }}
+                                <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+                                    <i  class="icon-remove-circle"></i>
+                                </a>
+                            </span>
                         </td>
                         {% endif %}
                         <td>
@@ -97,5 +105,9 @@
                 return !~text.indexOf(val);
             }).hide();
         });
+
+        function toggleAccountedForStatus(itemID) {
+            $('#accountedFor'+itemID).load("/toggleAccounted/" + itemID);
+        }
     </script>
 {% endblock %}

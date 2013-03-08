@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import login, logout, authenticate
 from main.models import *
 from main.forms import *
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 
 @csrf_protect
 def index(request):
@@ -91,6 +91,20 @@ def toggle_accounted_all(request):
         item.is_accounted_for = False
         item.save()
     return redirect('/items/')
+
+@login_required()
+def toggle_accounted(request, item_id):
+    item = Item.objects.get(owner_id = request.user, id = item_id )
+    if item is None:
+        return
+    item.is_accounted_for = not item.is_accounted_for
+    if item.is_accounted_for:
+        item.last_accounted_for = datetime.now().date()
+    item.save()
+    c = RequestContext(request, {'item' : item})
+    return render_to_response('toggle_accounted_for.html', c)
+
+
 
 
 @login_required()

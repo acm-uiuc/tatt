@@ -1,0 +1,15 @@
+{% if not item.is_accounted_for %}
+    <span class="not_accounted_for">
+    {{ item.last_accounted_for }}
+    <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+        <i  class="icon-ok-circle"></i>
+    </a>
+    </span>
+{% else %}
+    <span class="is_accounted_for">
+    {{ item.last_accounted_for }}
+    <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
+        <i  class="icon-remove-circle"></i>
+    </a>
+    </span>
+{% endif %}
