@@ -178,18 +178,9 @@ def make_avail(request, item_id):
         #TODO: error message here
         raise Http404
 
-    if request.method == 'POST':
-        make_avail_form = MakeAvailableForm(request.POST)
-        if make_avail_form.is_valid():
-            item.can_checkout = not item.can_checkout
-            item.save()
-            return HttpResponseRedirect('/items')
-        else:
-            print "cannot make available"
-    else:
-        make_avail_form = MakeAvailableForm()
-    c = RequestContext(request, { 'make_avail_form' : make_avail_form, 'item' : item })
-    return render_to_response('make_avail.html', c)
+    item.can_checkout = not item.can_checkout
+    item.save()
+    return HttpResponseRedirect('/items')
 
 ##### Views that are used to add to the database #####
 @login_required()
