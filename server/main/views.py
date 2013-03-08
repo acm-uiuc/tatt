@@ -249,8 +249,4 @@ def add_attribute_value(request):
             print "Attribute value added to database"
         else:
             print "attr_val_form is not valid!"
-        return HttpResponseRedirect("/additem/")
-    else:
-        attr_val_form = AttributeValueForm()
-    c = RequestContext(request, { 'attr_val_form' : attr_val_form })
-    return render_to_response('add_attr_val.html', c)
+    return HttpResponseRedirect("/additem/")
