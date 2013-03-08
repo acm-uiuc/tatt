@@ -85,6 +85,15 @@ def items(request):
     return render_to_response('items.html', c)
 
 @login_required()
+def toggle_accounted_all(request):
+    items = Item.objects.filter(owner_id = request.user)
+    for item in items:
+        item.is_accounted_for = False
+        item.save()
+    return redirect('/items/')
+
+
+@login_required()
 def avail_items(request):
     if request.method == 'GET':
         #TODO: parse search string and show new items?
