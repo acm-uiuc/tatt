@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^additem/$','main.views.add_item'),
     url(r'^make_avail/(?P<item_id>\d+)/$', 'main.views.make_avail'),
     url(r'^avail_items/$', 'main.views.avail_items'),
+    url(r'^checkin/(?P<item_id>\d+)/$', 'main.views.checkin'),
 
     # Search page
     url(r'^search/(?P<search_query>[a-zA-Z]+)', 'main.views.search'),
