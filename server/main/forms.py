@@ -56,7 +56,21 @@ class ItemTypeForm(forms.ModelForm):
         super(ItemTypeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Item Type'))
+        #self.helper.add_input(Submit('submit', 'Add Item Type'))
+
+        self.helper.layout = Layout(
+            'name',
+            ButtonHolder(
+                Submit('submit', 'Add Item Type')
+            )
+            )
+
+#    def clean(self):
+#        form_get_name = self.cleaned_data.get('name')
+#        name = ItemType.objects.all().filter(name=form_get_name)
+#        if name:
+#            raise forms.ValidationError("Name: " + form_get_name + " already exists!")
+#        return self.cleaned_data
 
     class Meta:
         model = ItemType
