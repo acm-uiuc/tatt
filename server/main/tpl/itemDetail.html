@@ -3,18 +3,23 @@
 {% block contextButtons %}
 {% endblock %}
 
-{% block content %}
+{% block content %} 
     <div class="row-fluid">
         <div class="span12">
-            <div id="itemDetails">
-                <p>Name: {{ item }}
-                <p>Location: {{ item.location }}
-                <p>Type: {{ item.item_type }}
-                <p>Owner: {{ item.owner_id }}
-                <p>Checked out by: {{ item.checked_out_by }}
-                {% for attr_val in attr_vals %}
-                    <p>{{ attr_val.attribute.name }}: {{attr_val.value }}
-                {% endfor %}
+            <div id="itemDetails" style="margin-bottom: 50px; margin-top: 50px">
+                <table style="font-size: 18px; margin-top: 5px">
+                    <tbody style="margin-bottom: 50px;">
+                        <tr><td><b>Name:</b></td> <td style="min-width: 10px"></td> <td>{{ item }}</td></tr>
+                        <tr><td><b>Location:</b></td> <td></td> <td>{{ item.location }}</td></tr>
+                        <tr><td><b>Type:</b></td> <td></td> <td>{{ item.item_type }}</td></tr>
+                        <tr><td><b>Owner:</b></td> <td></td> <td>{{ item.owner_id }}</td></tr>
+                        <tr><td><b>Checked out by:</b></td> <td></td> <td>{{ item.checked_out_by }}</td></tr>
+                        <tr><td><b>Attributes:</b></td></tr>
+                        {% for attr_val in attr_vals %}
+                            <tr><td><i>{{ attr_val.attribute.name }}:</i></td> <td></td> <td>{{attr_val.value }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
