@@ -106,6 +106,8 @@ def item_info(request, item_id):
     owner = False
     if(request.user == item.owner_id):
         owner = True
+    if not (item.can_checkout or owner):
+        return HttpResponseRedirect("/")
 
     c = RequestContext(request, {'item' : item, 'attr_vals' : attr_vals, 'owner' : owner })
     return render_to_response('itemDetail.html', c )
