@@ -209,7 +209,7 @@ def add_item(request):
 
 def add_item_type(request):
     if request.method == 'POST':
-        item_type_form = ItemTypeForm(request)
+        item_type_form = ItemTypeForm(request.POST)
         if item_type_form.is_valid():
             item_type_form = item_type_form.cleaned_data
             #TODO: Test that this works if not we'll need to pull each item from the form
@@ -222,28 +222,31 @@ def add_item_type(request):
 
 def add_attribute(request):
     if request.method == 'POST':
-        attr_form = AttributeForm(request)
+        attr_form = AttributeForm(request.POST)
         if attr_form.is_valid():
-            attr_form = attr_form.cleaned_data
             #TODO: Like item, verify this works
-            attr = Attribute(attr_form)
-            attr.save() 
+            new_attr = Attribute()
+            new_attr.name = attr_form.cleaned_data['name']
+            new_attr.item_type = attr_form.cleaned_data['item_type']
+            new_attr.save() 
             print "Attribute added to database"
         else:
             print "attr_form is not valid!"
+        return HttpResponseRedirect("/additem/")
     else:
-        HttpResponseRedirect("/items")
+        attr_form = AttributeForm()
+    c = RequestContext(request, { 'attr_form' : attr_form })
+    return render_to_response("add_attribute.html", c)
 
 def add_attribute_value(request):
     if request.method == 'POST':
-        attr_val_form = AttributeValueForm(request)
+        attr_val_form = AttributeValueForm(request.POST)
         if attr_val_form.is_valid():
-            attr_val_form = attr_val_form.cleaned_data
             #TODO: Like item, verify this works
-            attr_val = AttributeValue(attr_val_form)
-            attr_val.save()
+            new_attr_val = AttributeValue()
+            new_attr_val.attribute = attr_val_form.cleaned_data['attribute']
+            new_attr_val.value = attr_val_form.cleaned_data['value']
             print "Attribute value added to database"
         else:
             print "attr_val_form is not valid!"
-    else:
-        HttpResponseRedirect("/items")
+    return HttpResponseRedirect("/additem/")
