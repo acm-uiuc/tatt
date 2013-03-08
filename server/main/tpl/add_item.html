@@ -13,7 +13,14 @@
 	function load_add_items_form(){
 		var item_type = $("select[name='item_type']").val();
 		if(item_type != ""){
-			$("#additemform").load("/ajax/item_type/" + item_type);
+			$.getJSON('/ajax/item_type/' + item_type, function(data) {
+				var result = '';
+				
+				for(var i = 0; i < data.length;i++) {
+					result += '<div style="display:none"><input type="hidden" name="attr_pks" value="'+data[i]['pk']+'" /></div> <div id="div_attr" class="control-group"><label for="attr" class="control-label requiredField">'+data[i]['fields']['name']+'<span class="asteriskField">*</span></label><div class="controls"><input id="attr" type="text" class="textinput textInput" name="attr" maxlength="100" /></div></div></div>';
+				}
+			    $('#additemform').html(result);
+			});
 		}
 	}
 </script>
