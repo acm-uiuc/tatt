@@ -113,7 +113,7 @@ def toggle_accounted(request, item_id):
         item.last_accounted_for = datetime.now().date()
     item.save()
     c = RequestContext(request, {'item' : item})
-    return render_to_response('toggle_accounted_for.html', c)
+    return render_to_response('ajax/toggle_accounted_for.html', c)
 
 
 
