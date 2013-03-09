@@ -94,6 +94,11 @@ body
     color: #32cd32;
 }
 
+//Highlights matching search text
+.highlight {
+  background-color: yellow
+}
+
 #ResetAccountModal {
     min-height: 300px;
 }
