@@ -2,6 +2,11 @@
 {% block modals %}
     {{ block.super }}
 {% endblock %}
+
+{% block contextButtons %}
+    <a href="/additemtype/" role="button" class="btn-large btn-success">Add Item Type</a>
+{% endblock %}
+
 {% block content %}
 	    {% load crispy_forms_tags %}
 	    {% crispy item_form %}
