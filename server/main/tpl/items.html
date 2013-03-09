@@ -49,7 +49,7 @@
                         {% else %}
                         <td id="accountedFor{{ item.pk }}">
                             <span class="is_accounted_for">
-                                {{ item.last_accounted_for }}
+                                {{ item.last_accounted_for|date:"b. j, Y"|capfirst }}
                                 <a href onclick="toggleAccountedForStatus({{ item.pk }}); return false;">
                                     <i  class="icon-remove-circle"></i>
                                 </a>
