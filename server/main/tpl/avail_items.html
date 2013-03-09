@@ -70,6 +70,8 @@
 {% endblock %}
 
 {% block pageJavascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.highlight-4.closure.js"></script>
+
     <!-- The following table filter script is from http://jsfiddle.net/7BUmG/2/ !-->
     <script type="text/javascript">
         var $checkedOutRows = $('#yourCheckedOutList tbody tr');
@@ -80,6 +82,8 @@
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                 return !~text.indexOf(val);
             }).hide();
+            $checkedOutRows.removeHighlight();
+            $checkedOutRows.highlight(val);
         });
 
         var $availablerows = $('#availableItemList tbody tr');
@@ -90,6 +94,9 @@
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                 return !~text.indexOf(val);
             }).hide();
+
+            $availablerows.removeHighlight();
+            $availablerows.highlight(val);
         });
     </script>
 {% endblock %}

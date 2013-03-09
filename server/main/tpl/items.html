@@ -94,6 +94,7 @@
 {% endblock %}
 
 {% block pageJavascript %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.highlight-4.closure.js"></script>
     <!-- The following table filter script is from http://jsfiddle.net/7BUmG/2/ !-->
     <script type="text/javascript">
         var $rows = $('#itemList tbody tr');
@@ -104,6 +105,9 @@
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
                 return !~text.indexOf(val);
             }).hide();
+
+            $rows.removeHighlight();
+            $rows.highlight(val);
         });
 
         function toggleAccountedForStatus(itemID) {
