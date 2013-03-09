@@ -21,8 +21,8 @@
                         <th>Item Type</th>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>Due Date</th>
                         <th>Checked Out By</th>
+                        <th>Due Date</th>
                         <th>Last Accounted For</th>
                         <th>Can Checkout</th>
                     </tr>
@@ -35,8 +35,20 @@
                         <td>{{ item.item_type.name }}</td>
                         <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
                         <td>{{ item.location }}</td>
-                        <td>{{ item.due_date}}</td>
-                        <td>{{ item.checked_out_by }}</td>
+                        <td>
+                            {% if item.checked_out_by == None %}
+                                --
+                            {% else %}
+                                {{item.checked_out_by}}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.due_date == None %}
+                                --
+                            {% else %}
+                                {{ item.due_date}}
+                            {% endif %}
+                        </td>
                         {% if not item.is_accounted_for %}
                         <td id="accountedFor{{ item.pk }}">
                             <span class="not_accounted_for">
