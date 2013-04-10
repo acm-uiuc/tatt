@@ -255,17 +255,26 @@ def add_item_type(request):
     if request.method == 'POST':
         item_type_form = ItemTypeForm(request.POST)
         if item_type_form.is_valid():
-            #TODO: Test that this works if not we'll need to pull each item from the form
             new_type = ItemType()
             new_type.name = item_type_form.cleaned_data['name']
             new_type.save()
+            #create all the attributes
+            for attr in request.session['tempattrs']:
+                new_attr = Attribute()
+                new_attr.name = attr
+                new_attr.item_type = new_type
+                new_attr.save()
             print "ItemType added to database"
         else:
             print "item_type_form not valid"
+        del request.session['tempattrs']
         return HttpResponseRedirect("/additem/")
     else:
+        #set up the temp attributes
+        if not 'tempattrs' in request.session:
+            request.session['tempattrs'] = []
         item_type_form = ItemTypeForm()
-    c = RequestContext(request, { 'item_type_form' : item_type_form })
+    c = RequestContext(request, { 'item_type_form' : item_type_form, 'temp_attrs' : request.session['tempattrs']})
     return render_to_response("add_item_type.html", c)
 
 def add_attribute(request):
@@ -285,6 +294,20 @@ def add_attribute(request):
         attr_form = AttributeForm()
     c = RequestContext(request, { 'attr_form' : attr_form })
     return render_to_response("add_attribute.html", c)
+
+def add_temp_attr(request):
+    attr = request.POST['attrname']
+    tempattrs = request.session['tempattrs']
+    tempattrs.append(attr)
+    request.session['tempattrs'] = tempattrs
+    return HttpResponseRedirect("/additemtype/")
+
+def rem_temp_attr(request, attr_num):
+    tempattrs = request.session['tempattrs']
+    tempattrs.pop(int(attr_num))
+    request.session['tempattrs'] = tempattrs
+    return HttpResponseRedirect("/additemtype/")
+    
 
 def add_attribute_value(request):
     if request.method == 'POST':

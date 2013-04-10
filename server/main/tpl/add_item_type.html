@@ -3,6 +3,36 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
-	    {% load crispy_forms_tags %}
-	    {% crispy item_type_form %}
+        {% load crispy_forms_tags %}
+        {% crispy item_type_form %}
+        <div class="container">
+            <div class="span6">
+                <table id="attributesList" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Attribute Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in temp_attrs %}
+                        <tr>
+                            <td>{{ item }}</td>
+                            <td><a href="/remtempattr/{{forloop.counter0}}/">X</a></td>
+                        </tr>
+                        {% endfor %}
+
+                        <tr>
+                            <form action="/addtempattr/" method="post">
+                            {% csrf_token %}
+                                <td><input type="text" name="attrname"></td>
+                                <td><input type="submit" value="Add Attribute"></td>
+                            </form>
+                        </tr>
+                            
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
 {% endblock %}
