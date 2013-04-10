@@ -298,7 +298,8 @@ def add_attribute(request):
 def add_temp_attr(request):
     attr = request.POST['attrname']
     tempattrs = request.session['tempattrs']
-    tempattrs.append(attr)
+    if not attr in tempattrs:
+        tempattrs.append(attr)
     request.session['tempattrs'] = tempattrs
     return HttpResponseRedirect("/additemtype/")
 
