@@ -27,6 +27,10 @@ urlpatterns = patterns('',
     url(r'^additem/$','main.views.add_item'),
     url(r'^addattr/$','main.views.add_attribute'),
     url(r'^additemtype/$','main.views.add_item_type'),
+
+    url(r'^addtempattr/$','main.views.add_temp_attr'),
+    url(r'^remtempattr/(?P<attr_num>\d+)/$','main.views.rem_temp_attr'),
+
     url(r'^make_avail/(?P<item_id>\d+)/$', 'main.views.make_avail'),
     url(r'^ajax/(?P<type1>[a-z_A-Z]+)/(?P<data>[0-9]+)/$', 'main.views.ajax'),
     url(r'^avail_items/$', 'main.views.avail_items'),
