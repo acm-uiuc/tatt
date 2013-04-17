@@ -3,8 +3,6 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
-        {% load crispy_forms_tags %}
-        {% crispy item_type_form %}
         <div class="container">
             <div class="span6">
                 <table id="attributesList" class="table table-striped">
@@ -26,7 +24,7 @@
                             <form action="/addtempattr/" method="post">
                             {% csrf_token %}
                                 <td><input type="text" name="attrname"></td>
-                                <td><input type="submit" value="Add Attribute"></td>
+                                <td><input type="submit" class="btn btn-primary" value="Add Attribute"></td>
                             </form>
                         </tr>
                             
@@ -35,4 +33,7 @@
                 </table>
             </div>
         </div>
+        {% load crispy_forms_tags %}
+        {% crispy item_type_form %}
+
 {% endblock %}
