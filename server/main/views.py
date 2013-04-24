@@ -6,10 +6,11 @@ from django.core import serializers
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from django.utils import simplejson
 from main.models import *
 from main.forms import *
 from datetime import timedelta, date, datetime
+import qrcode
+
 
 @csrf_protect
 def index(request):
@@ -322,3 +323,10 @@ def add_attribute_value(request):
         else:
             print "attr_val_form is not valid!"
     return HttpResponseRedirect("/additem/")
+
+def qrcodeGen(request,item_id):
+    img = qrcode.make(item_id)
+    response = HttpResponse(mimetype="image/png")
+    img.save(response, "PNG")
+    return response
+

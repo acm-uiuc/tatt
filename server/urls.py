@@ -39,6 +39,8 @@ urlpatterns = patterns('',
     # Search page
     url(r'^search/(?P<search_query>[a-zA-Z]+)', 'main.views.search'),
 
+    url(r'^qrcode/(?P<item_id>\d+)$', 'main.views.qrcodeGen'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
