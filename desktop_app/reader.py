@@ -39,7 +39,7 @@ while 1:
         string = ""
         for item in data:
             string += item
-        print string
+        print string[6:15]
         data = []
     try:
         tmpdata = device.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize)
