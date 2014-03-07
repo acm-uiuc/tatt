@@ -3,6 +3,8 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
+        {% load crispy_forms_tags %}
+        {% crispy item_type_form %}
         <div class="container">
             <div class="span6">
                 <table id="attributesList" class="table table-striped">
@@ -33,7 +35,5 @@
                 </table>
             </div>
         </div>
-        {% load crispy_forms_tags %}
-        {% crispy item_type_form %}
 
 {% endblock %}

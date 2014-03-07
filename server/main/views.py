@@ -123,10 +123,12 @@ def toggle_accounted(request, item_id):
 def avail_items(request):
     if request.method == 'GET':
         #TODO: parse search string and show new items?
-        pass
+        query = request.GET.get('q', '')
+        print "Submitted: " + query
+        items = Item.objects.search(query)
 
     checkedoutitems = Item.objects.filter(checked_out_by = request.user)
-    items = Item.objects.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
+    items = items.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
     c = RequestContext(request, {'checkedoutitems' : checkedoutitems, 'items' : items})
     return render_to_response('avail_items.html', c)
 

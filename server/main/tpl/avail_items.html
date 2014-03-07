@@ -38,7 +38,9 @@
 
             <div class="pull-left"><h2 class="no-margins">Available Items</h2></div>
             <div id="availableItemListFilter" class="pull-right">
-                <input type="text" id="searchAvailable" placeholder="Search Available Items">
+                <form action="/avail_items/" method="get">
+                    <input type="text" name="q" id="searchAvailable" placeholder="Search Available Items">
+                </form>
             </div>
         </div>
     </div>
@@ -73,30 +75,30 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.highlight-4.closure.js"></script>
 
     <!-- The following table filter script is from http://jsfiddle.net/7BUmG/2/ !-->
-    <script type="text/javascript">
-        var $checkedOutRows = $('#yourCheckedOutList tbody tr');
-        $('#checkedOutSearch').keyup(function() {
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    <!-- <script type="text/javascript"> -->
+    <!--     var $checkedOutRows = $('#yourCheckedOutList tbody tr'); -->
+    <!--     $('#checkedOutSearch').keyup(function() { -->
+    <!--         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase(); -->
 
-            $checkedOutRows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-            }).hide();
-            $checkedOutRows.removeHighlight();
-            $checkedOutRows.highlight(val);
-        });
+    <!--         $checkedOutRows.show().filter(function() { -->
+    <!--             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase(); -->
+    <!--             return !~text.indexOf(val); -->
+    <!--         }).hide(); -->
+    <!--         $checkedOutRows.removeHighlight(); -->
+    <!--         $checkedOutRows.highlight(val); -->
+    <!--     }); -->
 
-        var $availablerows = $('#availableItemList tbody tr');
-        $('#searchAvailable').keyup(function() {
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    <!--     var $availablerows = $('#availableItemList tbody tr'); -->
+    <!--     $('#searchAvailable').keyup(function() { -->
+    <!--         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase(); -->
 
-            $availablerows.show().filter(function() {
-                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                return !~text.indexOf(val);
-            }).hide();
+    <!--         $availablerows.show().filter(function() { -->
+    <!--             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase(); -->
+    <!--             return !~text.indexOf(val); -->
+    <!--         }).hide(); -->
 
-            $availablerows.removeHighlight();
-            $availablerows.highlight(val);
-        });
-    </script>
+    <!--         $availablerows.removeHighlight(); -->
+    <!--         $availablerows.highlight(val); -->
+    <!--     }); -->
+    <!-- </script> -->
 {% endblock %}

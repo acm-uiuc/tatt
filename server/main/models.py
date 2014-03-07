@@ -1,5 +1,23 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
+import operator
+
+class ItemManager(models.Manager):
+    def search(self, search_query):
+        terms = [term.strip() for term in search_query.split()]
+            
+        q_objects = []
+
+        for term in terms:
+            q_objects.append(Q(name__icontains=term))
+
+        qs = self.get_query_set()
+
+        if len(terms) == 0:
+            return qs.filter()
+
+        return qs.filter(reduce(operator.or_, q_objects))
 
 class Item(models.Model):
     item_type = models.ForeignKey('ItemType')
@@ -12,6 +30,8 @@ class Item(models.Model):
     is_accounted_for = models.BooleanField(default = True)
     has_photo = models.BooleanField()
     can_checkout = models.BooleanField(default = False)
+    
+    objects = ItemManager()
 
     def __unicode__(self):
         return self.name
