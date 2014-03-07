@@ -290,7 +290,7 @@ def add_attribute(request):
             print "Attribute added to database"
         else:
             print "attr_form is not valid!"
-        return HttpResponseRedirect("/additem/")
+        return HttpResponseRedirect("/items/")
     else:
         attr_form = AttributeForm()
     c = RequestContext(request, { 'attr_form' : attr_form })

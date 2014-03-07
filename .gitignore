@@ -13,3 +13,5 @@ tatt_db
 server/.project
 server/.pydevproject
 .sass-cache/
+*.swp
+tattenv/
