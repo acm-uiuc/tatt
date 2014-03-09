@@ -6,11 +6,26 @@ import operator
 class ItemManager(models.Manager):
     def search(self, search_query):
         terms = [term.strip() for term in search_query.split()]
-            
-        q_objects = []
+
+        queries = {}
 
         for term in terms:
-            q_objects.append(Q(name__icontains=term))
+                things = term.split(':');
+                if len(things) == 1:
+                        queries['name'] = queries['name'] + ' ' + things[0]
+                else:
+                        queries[things[0]] = things[1]
+
+        q_objects = []
+
+        for kind, value in queries.iteritems():
+            if kind == 'type':
+                q_objects.append(Q(item_type__name__icontains=value))
+            if kind == 'location':
+                q_objects.append(Q(location__icontains=value))
+            else:
+                q_objects.append(Q(name__icontains=value))
+
 
         qs = self.get_query_set()
 
