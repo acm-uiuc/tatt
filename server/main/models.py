@@ -12,27 +12,35 @@ class ItemManager(models.Manager):
         for term in terms:
                 things = term.split(':');
                 if len(things) == 1:
+                    if not 'name' in queries:
+                        queries['name'] = things[0]
+                    else:
                         queries['name'] = queries['name'] + ' ' + things[0]
                 else:
-                        queries[things[0]] = things[1]
+                    queries[things[0]] = things[1]
 
         q_objects = []
 
+        qs = self.get_query_set()
+
+        print queries
+
         for kind, value in queries.iteritems():
             if kind == 'type':
-                q_objects.append(Q(item_type__name__icontains=value))
-            if kind == 'location':
-                q_objects.append(Q(location__icontains=value))
+                qs = qs.filter(item_type__name__icontains=value)
+            elif kind == 'location':
+                qs = qs.filter(location__icontains=value)
+            elif any(kind in s.split()[0].lower() for s in Attribute.objects.values_list('name', flat=True)):
+                qs = qs.filter(attributevalue__attribute__name__icontains=kind, attributevalue__value__icontains=value)
             else:
-                q_objects.append(Q(name__icontains=value))
+                qs = qs.filter(name__icontains=value)
+                print len(qs.values_list('name'))
 
-
-        qs = self.get_query_set()
 
         if len(terms) == 0:
             return qs.filter()
 
-        return qs.filter(reduce(operator.or_, q_objects))
+        return qs
 
 class Item(models.Model):
     item_type = models.ForeignKey('ItemType')
