@@ -28,6 +28,8 @@ class ItemManager(models.Manager):
                 qs = qs.filter(location__icontains=value)
             elif kind == 'id' and value.isdigit():
                 qs = qs.filter(pk__exact=value)
+            elif kind == 'owner':
+                qs = qs.filter(owner_id__username__icontains=value)
             elif any(kind in s.split()[0].lower() for s in Attribute.objects.values_list('name', flat=True)):
                 qs = qs.filter(attributevalue__attribute__name__icontains=kind, attributevalue__value__icontains=value)
             else:
