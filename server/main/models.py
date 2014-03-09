@@ -6,18 +6,39 @@ import operator
 class ItemManager(models.Manager):
     def search(self, search_query):
         terms = [term.strip() for term in search_query.split()]
-            
-        q_objects = []
+
+        queries = {}
 
         for term in terms:
-            q_objects.append(Q(name__icontains=term))
+                things = term.split(':');
+                if len(things) == 1:
+                    if not 'name' in queries:
+                        queries['name'] = things[0]
+                    else:
+                        queries['name'] = queries['name'] + ' ' + things[0]
+                else:
+                    queries[things[0]] = things[1]
 
         qs = self.get_query_set()
+
+        for kind, value in queries.iteritems():
+            if kind == 'type':
+                qs = qs.filter(item_type__name__icontains=value)
+            elif kind == 'location':
+                qs = qs.filter(location__icontains=value)
+            elif kind == 'id' and value.isdigit():
+                qs = qs.filter(pk__exact=value)
+            elif kind == 'owner':
+                qs = qs.filter(owner_id__username__icontains=value)
+            elif any(kind in s.split()[0].lower() for s in Attribute.objects.values_list('name', flat=True)):
+                qs = qs.filter(attributevalue__attribute__name__icontains=kind, attributevalue__value__icontains=value)
+            else:
+                qs = qs.filter(name__icontains=value)
 
         if len(terms) == 0:
             return qs.filter()
 
-        return qs.filter(reduce(operator.or_, q_objects))
+        return qs
 
 class Item(models.Model):
     item_type = models.ForeignKey('ItemType')
