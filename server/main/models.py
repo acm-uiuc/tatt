@@ -19,23 +19,19 @@ class ItemManager(models.Manager):
                 else:
                     queries[things[0]] = things[1]
 
-        q_objects = []
-
         qs = self.get_query_set()
-
-        print queries
 
         for kind, value in queries.iteritems():
             if kind == 'type':
                 qs = qs.filter(item_type__name__icontains=value)
             elif kind == 'location':
                 qs = qs.filter(location__icontains=value)
+            elif kind == 'id' and value.isdigit():
+                qs = qs.filter(pk__exact=value)
             elif any(kind in s.split()[0].lower() for s in Attribute.objects.values_list('name', flat=True)):
                 qs = qs.filter(attributevalue__attribute__name__icontains=kind, attributevalue__value__icontains=value)
             else:
                 qs = qs.filter(name__icontains=value)
-                print len(qs.values_list('name'))
-
 
         if len(terms) == 0:
             return qs.filter()
