@@ -10,6 +10,7 @@ from main.models import *
 from main.forms import *
 from datetime import timedelta, date, datetime
 import qrcode
+import json
 
 
 @csrf_protect
@@ -253,6 +254,13 @@ def add_item(request):
         item_form = ItemForm()
     c = RequestContext(request, { 'item_form' : item_form })
     return render_to_response("add_item.html", c)
+
+@login_required()
+def rem_item(request):
+    item = Item.objects.get(pk=int(request.REQUEST['id']))
+    item.delete()
+    payload = {'id' : int(request.REQUEST['id']), 'success' : True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
 
 def add_item_type(request):
     if request.method == 'POST':
