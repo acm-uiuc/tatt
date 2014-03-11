@@ -123,9 +123,7 @@ def toggle_accounted(request, item_id):
 @login_required()
 def avail_items(request):
     if request.method == 'GET':
-        #TODO: parse search string and show new items?
         query = request.GET.get('q', '')
-        print "Submitted: " + query
         items = Item.objects.search(query)
 
     checkedoutitems = Item.objects.filter(checked_out_by = request.user)

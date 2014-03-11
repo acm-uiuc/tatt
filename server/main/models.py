@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
-import operator
 
 class ItemManager(models.Manager):
     def search(self, search_query):
