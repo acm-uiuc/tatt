@@ -259,7 +259,7 @@ def add_item(request):
 def rem_item(request):
     item = Item.objects.get(pk=int(request.REQUEST['id']))
     item.delete()
-    payload = {'id' : int(request.REQUEST['id']), 'success' : True}
+    payload = {'success' : True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
 
 def add_item_type(request):

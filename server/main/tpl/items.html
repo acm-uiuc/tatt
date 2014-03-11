@@ -33,9 +33,9 @@
                     {% for item in items %}
                     <tr>
                         <td id="item{{ item.pk }}">
-                            <button class="delete_button" id="{{ item.pk }}">
-                                del
-                            </button>
+                            <span class="delete_button" id="{{ item.pk }}">
+                                    <i  class="icon-remove-circle"></i>
+                            </span>
                             {{ item.pk }}
                         </td>
                         <td>{{ item.item_type.name }}</td>
