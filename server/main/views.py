@@ -10,6 +10,7 @@ from main.models import *
 from main.forms import *
 from datetime import timedelta, date, datetime
 import qrcode
+import json
 
 
 @csrf_protect
@@ -122,11 +123,11 @@ def toggle_accounted(request, item_id):
 @login_required()
 def avail_items(request):
     if request.method == 'GET':
-        #TODO: parse search string and show new items?
-        pass
+        query = request.GET.get('q', '')
+        items = Item.objects.search(query)
 
     checkedoutitems = Item.objects.filter(checked_out_by = request.user)
-    items = Item.objects.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
+    items = items.filter(can_checkout = True, checked_out_by = None).exclude(owner_id = request.user)
     c = RequestContext(request, {'checkedoutitems' : checkedoutitems, 'items' : items})
     return render_to_response('avail_items.html', c)
 
@@ -252,6 +253,13 @@ def add_item(request):
     c = RequestContext(request, { 'item_form' : item_form })
     return render_to_response("add_item.html", c)
 
+@login_required()
+def rem_item(request):
+    item = Item.objects.get(pk=int(request.REQUEST['id']))
+    item.delete()
+    payload = {'success' : True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
 def add_item_type(request):
     if request.method == 'POST':
         item_type_form = ItemTypeForm(request.POST)
@@ -290,7 +298,7 @@ def add_attribute(request):
             print "Attribute added to database"
         else:
             print "attr_form is not valid!"
-        return HttpResponseRedirect("/additem/")
+        return HttpResponseRedirect("/items/")
     else:
         attr_form = AttributeForm()
     c = RequestContext(request, { 'attr_form' : attr_form })
