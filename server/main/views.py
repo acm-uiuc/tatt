@@ -11,10 +11,6 @@ from main.forms import *
 from datetime import timedelta, date, datetime
 import qrcode
 
-#Get info from book qr
-#checkout command
-#checkin book
-
 @csrf_protect
 def index(request):
 
@@ -332,9 +328,3 @@ def qrcodeGen(request,item_id):
     response = HttpResponse(mimetype="image/png")
     img.save(response, "PNG")
     return response
-
-
-
-
-
-
