@@ -42,6 +42,11 @@ urlpatterns = patterns('',
 
     url(r'^qrcode/(?P<item_id>\d+)$', 'main.views.qrcodeGen'),
 
+    # Rasberry Pi API
+    url(r'^pi_api/getInfo/(?P<item_id>\d+)/$', 'main.pi_api.getItemInfo'),
+    url(r'^pi_api/checkoutItem/(?P<item_id>\d+)/(?P<UIN>\d+)/$', 'main.pi_api.checkoutItem'),
+    url(r'^pi_api/checkinItem/(?P<item_id>\d+)/$', 'main.pi_api.checkinItem'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
