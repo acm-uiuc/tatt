@@ -14,7 +14,7 @@ class Item(models.Model):
     can_checkout = models.BooleanField(default = False)
 
     def __unicode__(self):
-        return self.name
+        return "%s%s" % (self.name, str(self.checked_out_by))
 
 class ItemType(models.Model):
     name = models.CharField(max_length=100)
