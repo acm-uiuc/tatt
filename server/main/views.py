@@ -180,7 +180,7 @@ def checkout(request, item_id):
             item.checked_out_by = request.user
             item.last_accounted_for = date.today()
             #TODO: add a option to set how long people are allowed to borrow for
-            item.due_date = item.last_accounted_for + timedelta(seconds=2)
+            item.due_date = item.last_accounted_for + timedelta(weeks=2)
             item.save()
             return HttpResponseRedirect('/items')
         else:
