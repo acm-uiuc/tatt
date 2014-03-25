@@ -55,7 +55,8 @@ def register(request, *args, **kwargs):
 
             user_form = user_form.cleaned_data
             new_user = User.objects.create_user(username=user_form['username'],
-                                                password=user_form['password'])
+                                                password=user_form['password'],
+                                                email=user_form['email'])
             new_user.first_name = user_form['first_name']
             new_user.last_name = user_form['last_name']
 
@@ -179,7 +180,7 @@ def checkout(request, item_id):
             item.checked_out_by = request.user
             item.last_accounted_for = date.today()
             #TODO: add a option to set how long people are allowed to borrow for
-            item.due_date = item.last_accounted_for + timedelta(weeks=2)
+            item.due_date = item.last_accounted_for + timedelta(seconds=2)
             item.save()
             return HttpResponseRedirect('/items')
         else:
@@ -201,6 +202,7 @@ def checkin(request, item_id):
     item.last_accounted_for = date.today()
     #TODO: add a option to set how long people are allowed to borrow for
     item.due_date = None
+    item.is_overdue = False;
     item.save() 
     c = RequestContext(request, {'item' : item })
     return HttpResponseRedirect('/items')

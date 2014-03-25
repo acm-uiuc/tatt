@@ -50,6 +50,7 @@ class Item(models.Model):
     is_accounted_for = models.BooleanField(default = True)
     has_photo = models.BooleanField()
     can_checkout = models.BooleanField(default = False)
+    is_overdue = models.BooleanField(default = False)
     
     objects = ItemManager()
 
