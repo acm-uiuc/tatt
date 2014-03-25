@@ -163,7 +163,7 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("User: " + form_username + " already exists!")  
 
         form_email = self.cleaned_data.get('email')
-        user = User.objects.all().filter(username=form_email)
+        user = User.objects.all().filter(email=form_email)
         #print user
         if user:
             raise forms.ValidationError("Email: " + form_email + " already exists!")  
