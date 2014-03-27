@@ -145,6 +145,7 @@ class UserForm(forms.ModelForm):
         #self.helper.add_input(Submit('submit', 'Submit'))
         self.helper.layout = Layout(
             'username',
+            'email',
             'first_name',
             'last_name',
             'password',
@@ -160,6 +161,13 @@ class UserForm(forms.ModelForm):
         #print user
         if user:
             raise forms.ValidationError("User: " + form_username + " already exists!")  
+
+        form_email = self.cleaned_data.get('email')
+        user = User.objects.all().filter(email=form_email)
+        #print user
+        if user:
+            raise forms.ValidationError("Email: " + form_email + " already exists!")  
+
         password = self.cleaned_data.get('password')
         password2 =  self.cleaned_data.get('password2')
         if password and password2 and password != password2:
@@ -168,7 +176,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User 
-        fields = ('username', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 class LoginForm(forms.Form):
     username = forms.CharField(
