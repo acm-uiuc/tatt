@@ -17,13 +17,13 @@ that you will create a python virtual environment in your home directory.
 # Software setup
 To install the project you will need to do the following.
 
-* sudo apt-get install python git python-pip ruby-compass
+* sudo apt-get install python git python-pip python-dev ruby-compass
 * sudo pip install virtualenv
 * cd ~
 * git clone git@github.com:{YOUR GITHUB ID HERE}/tatt.git
 * virtualenv --no-site-packages tattenv
 * source tattenv/bin/activate
-* pip install -r tatt/dependencies.txt
+* pip install -r tatt/dependencies.txt --allow-external PIL --allow-unverified PIL
 
 ## Regarding Virtual Environment
 Whenever you work on the project you will first need to activate the virtual 
