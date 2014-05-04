@@ -71,8 +71,8 @@ def checkoutItem(request, item_id, UIN):
 
         # TODO: Convert UIN to USER
         user = get_object_or_404(User, pk=UIN)
-
         item.checked_out_by = user
+        item.can_checkout = False
         item.last_accounted_for = date.today()
         #TODO: add a option to set how long people are allowed to borrow for
         item.due_date = item.last_accounted_for + timedelta(weeks=2)
@@ -93,6 +93,7 @@ def checkinItem(request, item_id):
         # TODO: make sure UIN maps to the user
 
         item.checked_out_by = None
+        item.can_checkout = True
         item.last_accounted_for = date.today()
         #TODO: add option to set how long people are allowed to borrow for
         item.due_date = None
