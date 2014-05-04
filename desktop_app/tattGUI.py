@@ -2,7 +2,7 @@ from Tkinter import *
 import requests
 import json
 
-class Example(Frame):
+class TattGui(Frame):
 	def __init__(self, parent):
 		Frame.__init__(self, parent)
 
@@ -127,7 +127,7 @@ def main():
 
 	root = Tk()
 	root.geometry("500x300+300+300")
-	app = Example(root)
+	app = TattGui(root)
 	root.mainloop()
 
 if __name__ == '__main__':
