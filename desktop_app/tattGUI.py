@@ -52,7 +52,7 @@ class TattGui(Frame):
 		self.itemEntryText.set('1')
 		entryFrame.itemEntry = Entry(entryFrame, textvariable=self.itemEntryText, width=10).pack(side=LEFT, padx=5, pady=5)
 		searchButton = Button(entryFrame, text="Search", command=self.search).pack(side=RIGHT, padx=5, pady=5)
-		Button(buttonFrame, text="Lookup QR", command=self.requestQR).pack(side=TOP, padx=5, pady=5)
+		Button(entryFrame, text="Lookup QR", command=self.requestQR).pack(side=TOP, padx=5, pady=5)
 		entryFrame.pack(fill=BOTH, side=TOP)
 
 		#Response Frame
