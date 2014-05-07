@@ -1,145 +1,243 @@
+'''
+Created By: Eric Rosenberg
+
+Tkinter GUI, ICard, and QR Code processing.
+
+cardRead processing with the help of Micah Carrick - check out http://www.micahcarrick.com/credit-card-reader-pyusb.html
+
+Dependent on PyUSB 1.0 branch
+'''
+
 from Tkinter import *
 import requests
 import json
 import sys
 import usb.core
 import usb.util
+import time
 from qrtools import QR
 
+#debugging
+import random
+
 class TattGui(Frame):
-	def __init__(self, parent):
+	def __init__(self, parent, domainAndPort):
 		Frame.__init__(self, parent)
-
 		self.parent = parent
-
+		self.domainAndPort = domainAndPort
 		self.initUI()
+		self.default()
 
 	def initUI(self):
 		self.parent.title("Track All the Things")
 
-		#Setup
-		self.itemNumber = '1' # Default search
-		self.viableCheckout = True
-
-		#Main Frame
+		# Main Frame
 		frame = Frame(self, relief=RAISED, borderwidth=1)
 		frame.pack(fill=BOTH, expand=1)
 
 		#Welcome Frame
 		welcomeFrame = Frame(frame)
-		welcome = Label(welcomeFrame, text="Welcome to Track all the Things!")
-		welcome.pack(side=TOP)
-		welcomeFrame.pack(fill=BOTH, side=TOP)
+		self.welcome = StringVar()
+		Label(welcomeFrame, textvariable=self.welcome).pack(side=TOP)
+		Frame(welcomeFrame, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
+		welcomeFrame.pack(fill=BOTH, side=TOP, pady=5)
 
 		#Bottom Frame
 		bottomFrame = Frame(frame)
 
-		self.checkoutResponseLabelText = StringVar()
-		self.checkoutResponseLabel = Label(bottomFrame, textvariable=self.checkoutResponseLabelText, justify=LEFT).pack(side=TOP, pady=5)
+		Frame(bottomFrame, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
-		buttonFrame = Frame(bottomFrame)
-		Button(buttonFrame, text="Close", command=self.quit).pack(side=RIGHT, padx=5, pady=5)
-		Button(buttonFrame, text="Check Out", command=self.checkout).pack(side=LEFT, padx=5, pady=5)
-		Button(buttonFrame, text="Lookup UIN", command=self.requestCardLookup).pack(side=TOP, padx=5, pady=5)
-		buttonFrame.pack(fill=BOTH, side=BOTTOM)
+		self.lowerResponse = StringVar()
+		Label(bottomFrame, textvariable=self.lowerResponse).pack(side=TOP, padx=5, pady=5)
 		
-		bottomFrame.pack(fill=BOTH, side=BOTTOM)
+		buttonFrame = Frame(bottomFrame)
+		Button(buttonFrame, text="Check Out", command=self.checkout).pack(side=LEFT, padx=5)
+		Button(buttonFrame, text="Return", command=self.returnItem).pack(side=LEFT, padx=5)
+		Button(buttonFrame, text="Close", command=self.quit).pack(side=RIGHT, padx=5)
+		buttonFrame.pack(fill=X, side=BOTTOM, pady=5)
 
-		#Entry Frame
-		entryFrame = Frame(frame)
+		bottomFrame.pack(fill=X, side=BOTTOM)
 
-		self.itemEntryText = StringVar()
-		self.itemEntryText.set('1')
-		entryFrame.itemEntry = Entry(entryFrame, textvariable=self.itemEntryText, width=10).pack(side=LEFT, padx=5, pady=5)
-		searchButton = Button(entryFrame, text="Search", command=self.search).pack(side=RIGHT, padx=5, pady=5)
-		Button(entryFrame, text="Lookup QR", command=self.requestQR).pack(side=TOP, padx=5, pady=5)
-		entryFrame.pack(fill=BOTH, side=TOP)
+		#Middle Frame
+		middleFrame = Frame(frame)
 
-		#Response Frame
-		responseFrame = Frame(frame)
-		self.responseText = StringVar()
-		self.responseText.set("Waiting for a Search")
-		self.responseLabel = Label(responseFrame, textvariable=self.responseText, justify=LEFT).pack(side=LEFT)
-		responseFrame.pack(side=LEFT)
+		promptFrame = Frame(middleFrame)
+		self.prompt = StringVar()
+		Label(promptFrame, textvariable=self.prompt).pack(padx=5, pady=5)
+		promptFrame.pack(fill=X)
 
-		#self frame
+		interactiveFrame = Frame(middleFrame)
+		Button(interactiveFrame, text="Swipe In", command=self.swipeIn).pack(side=LEFT, padx=5)
+		Button(interactiveFrame, text="Leave", command=self.leave).pack(side=LEFT, padx=5)
+		Button(interactiveFrame, text="Scan QR", command=self.scanQR).pack(side=LEFT, padx=5)
+		interactiveFrame.pack(side=TOP)
+
+		textViewFrame = Frame(middleFrame)
+		self.mainResponse = StringVar()
+		Label(textViewFrame, textvariable=self.mainResponse, justify=LEFT).pack(side=LEFT)
+		textViewFrame.pack(side=TOP, padx=5, pady=10)
+
+		middleFrame.pack(fill=X)
+
+		#Finish up self
 		self.pack(fill=BOTH, expand=1)
 
-	def requestCardLookup(self):
-		initCardReader(self)
-
-	def requestQR(self):
-		data = initQR(self)
-		self.checkoutResponseLabelText.set(data)
-
-	def search(self):
-
-		self.checkoutResponseLabelText.set('')
-
-		self.itemNumber = self.itemEntryText.get()
-		print(self.itemNumber)
-		url = 'http://localhost:8000/pi_api/getInfo/%s/' % self.itemNumber
-		print(url)
-  		response = requests.get(url)
-  		if response.status_code != 200:
-  			self.responseText.set('HTTP Error')
-  			self.viableCheckout = False
-  			return
-
-		rText = str(response.text)
-		rJson = json.loads(rText)
-		if rJson['status_code'] != 0:
-			self.responseText.set('Error %s' % (rJson['error_message']))
-			self.viableCheckout = False
-		else:
-
-			#self.responseText.set('Checked out by: %s' % rJson['checked_out_by'])
-			ownerData = 'Owner: \t%s %s' % (rJson['first_name'], rJson['last_name'])
-			checkOutData = ''
-			if rJson['can_checkout']:
-				checkOutData = 'You can check this out'
-				self.viableCheckout = True
-			else:
-				checkOutData = "This item has already been checked out by %s" % rJson['checked_out_by']
-				self.viableCheckout = False
-			
-			typeData = 'Type: \t%s' % rJson['item_type']
-			nameData = 'Name: \t%s' % rJson['name']
-			locationData = 'Location: \t%s' % rJson['location']
-
-			self.responseText.set('%s\n\n%s\n%s\n%s\n%s' % (checkOutData, ownerData, typeData, nameData, locationData))
+	def default(self):
+		self.prompt.set('Welcome, please click on \'Swipe In\' or \'Scan QR\' to get started!.')
+		self.welcome.set('Welcome to Track All the Things!')
+		self.lowerResponse.set('')
+		self.mainResponse.set('')
+		self.item = ''
+		self.UIN = ''
 
 	def checkout(self):
-		print('Checkout called')
-
-		if self.viableCheckout == False:
-			self.checkoutResponseLabelText.set("Can't Check Out.")
+		print "Not Yet Implemented"
+		if self.UIN == '':
+			self.lowerResponse.set("You need to swipe in before you check something out.")
+			self.prompt.set('Please click on \'Swipe In\' to get started.')
+			return
+		if self.item == '':
+			self.lowerResponse.set("You haven't scanned an item yet!")
+			self.prompt.set("Go ahead and scan an item\'s QR Code")
 			return
 
-		#Run Checkout
-		UIN = 1
-		url = 'http://localhost:8000/pi_api/checkoutItem/%s/%s' % (self.itemNumber, UIN)
-		print('requesting: %s' % url)
-		response = requests.get(url)
+		url = 'http://%s/pi_api/checkoutItem/%s/%s' % (self.domainAndPort, self.item, self.UIN)
 
-		#Checking for errors
-		message = ''
-		if response.status_code != 200:
-			message = 'Failed to make request'
+		try:
+			response = requests.get(url)
+
+			if response.status_code != 200:
+				raise Exception('Bad HTTP Response')
+
+			#Looks like http was successful
+			rText = str(response.text)
+			rJson = json.loads(rText)
+
+		except:
+			self.lowerResponse.set("HTTP Error")
+			self.prompt.set("There was an HTTP Error, try leaving and starting over.")
+			return
+
+		if rJson['status_code'] != 0:
+			self.lowerResponse.set("Error: %s" % rJson['error_message'])
+			self.prompt.set("Looks like there was an issue. Try scanning again.")
+			return
+
+		self.lowerResponse.set("Successfully Checked Out!")
+		self.prompt.set("Your item was successfully checked out. You can leave or check out more!")
+
+	def returnItem(self):
+		if self.item == '':
+			self.lowerResponse.set("You haven't scanned an item yet!")
+			self.prompt.set("Go ahead and scan an item\'s QR Code")
+			return
+
+		url = 'http://%s/pi_api/checkinItem/%s' % (self.domainAndPort, self.item)
+
+		try:
+			response = requests.get(url)
+
+			if response.status_code != 200:
+				raise Exception('Bad HTTP Response')
+
+			rText = str(response.text)
+			rJson = json.loads(rText)
+
+		except:
+			self.lowerResponse.set("HTTP Error")
+			self.prompt.set("There was an HTTP Error, try leaving and starting over.")
+			return
+
+		if rJson['status_code'] != 0:
+			self.lowerResponse.set("Error: %s" % rJson['error_message'])
+			self.prompt.set("Looks like there was an issue. Try scanning again.")
+			return
+
+		self.lowerResponse.set("Successfully Returned!")
+		self.prompt.set("Your item was successfully retuned.")
+
+	def swipeIn(self):
+		#Only if card reader in
+		UIN = cardRead(self.lowerResponse)
+
+		if UIN == -1:
+			return
+
+		self.UIN = UIN
+
+		#debuging
+		#self.UIN = '1'
+
+		self.welcome.set("%s - User: %s" % (self.welcome.get(), self.UIN))
+
+		if self.item == '':
+			self.prompt.set('Click \'Scan QR\' to select the item you want to return or check out.')
 		else:
-			rJson = json.loads(str(response.text))
-			result = 'Checkout Successful!'
-			if rJson['status_code'] == 1:
-				result = 'Error: %s' % rJson['error_message']
+			self.prompt.set('Successfully swiped you in!')
 
-		self.checkoutResponseLabelText.set(result)
+	def leave(self):
+		self.default()
 
-def initQR(app):
-	myCode = QR()
-	myCode.decode_webcam()
-	return myCode.data
+	def scanQR(self):
+		#Only if QR plugged in
+		key = readQR()
 
-def initCardReader(app):
+		if key == -1:
+			self.lowerResponse.set("Either you close the window or webcam is having issues. Maybe ask someone for help.")
+			return
+		#Debug, random search
+		#key = random.randint(0,30)
+
+		url = 'http://%s/pi_api/getInfo/%s/' % (self.domainAndPort, key)
+
+		try:
+			response = requests.get(url)
+
+			if response.status_code != 200:
+				raise Exception('Bad HTTP Response')
+
+			rText = str(response.text)
+			rJson = json.loads(rText)
+			
+		except:
+			self.lowerResponse.set("HTTP Error")
+			self.prompt.set("Looks like there was an issue. Try scanning again.")
+			return;
+
+		if rJson['status_code'] != 0:
+			self.lowerResponse.set("Error: %s" % rJson['error_message'])
+			self.prompt.set("Looks like there was an issue. Try scanning again.")
+			return
+
+		ownerData = 'Owner: \t%s %s' % (rJson['first_name'], rJson['last_name'])
+		checkOutData = ''
+		if rJson['can_checkout']:
+			checkOutData = 'You can check this out'
+		else:
+			checkOutData = "This item has already been checked out by %s" % rJson['checked_out_by']
+		
+		typeData = 'Type: \t%s' % rJson['item_type']
+		nameData = 'Name: \t%s' % rJson['name']
+		locationData = 'Location: \t%s' % rJson['location']
+
+		self.mainResponse.set('%s\n\n%s\n%s\n%s\n%s' % (checkOutData, ownerData, typeData, nameData, locationData))
+		self.item = key
+		self.prompt.set("Item looked up!")
+		self.lowerResponse.set('')
+
+def readQR():
+	future = time.time() + 10
+	ret = 'NULL'
+	while time.time() < future and ret == 'NULL':
+		myCode = QR()
+		myCode.decode_webcam()
+		ret = myCode.data
+
+	if ret == 'NULL':
+		return -1
+	return ret
+
+def cardRead(label):
 	VENDOR_ID = 0x0801
 	PRODUCT_ID = 0x0002
 	DATA_SIZE = 337
@@ -149,7 +247,9 @@ def initCardReader(app):
 	device = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID)
 
 	if device is None:
-	    sys.exit("Could not find MagTek USB HID Swipe Reader.")
+	    #sys.exit("Could not find MagTek USB HID Swipe Reader.")
+	    label.set("Could not find MagTek USB HID Swipe Reader.")
+	    return -1
 
 	# make sure the hiddev kernel driver is not active
 
@@ -157,7 +257,9 @@ def initCardReader(app):
 	    try:
 	        device.detach_kernel_driver(0)
 	    except usb.core.USBError as e:
-	        sys.exit("Could not detatch kernel driver: %s" % str(e))
+	        #sys.exit("Could not detatch kernel driver: %s" % str(e))
+	        label.set("Could not detatch kernel driver: %s" % str(e))
+	        return -1
 
 	# set configuration
 
@@ -165,7 +267,9 @@ def initCardReader(app):
 	    device.set_configuration()
 	    device.reset()
 	except usb.core.USBError as e:
-	    sys.exit("Could not set configuration: %s" % str(e))
+	    #sys.exit("Could not set configuration: %s" % str(e))
+	    label.set("Could not set configuration: %s" % str(e))
+	    return -1
 	    
 	endpoint = device[0][(0,0)][0]
 
@@ -173,34 +277,31 @@ def initCardReader(app):
 
 	data = []
 	swiped = False
-	print "Please swipe your card..."
-	app.responseText.set("Please swipe your card...")
+	label.set("Please swipe your card...")
+
+	future = time.time() + 10
 
 	while 1:
 	    try:
 	        data += device.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize)
 	        if not swiped: 
-	            print "Reading..."
-	            app.responseText.set("Reading...")
+	            label.set("Reading...")
 	        swiped = True
 	    except usb.core.USBError as e:
-	        #print "Error %s" % e
-	        #print e.args
-	        #print "Swiped %s" % swiped
 	        if e.args[0] == 110  and swiped:
 	            if len(data) < DATA_SIZE:
-	                print "Bad swipe, try again. (%d bytes)" % len(data)
-	                app.responseText.set("Bad swipe, try again.")
-	                print "Data: %s" % ''.join(map(chr, data))
+	                #print "Bad swipe, try again. (%d bytes)" % len(data)
+	                label.set("Bad swipe, try again.")
+	                #print "Data: %s" % ''.join(map(chr, data))
 	                data = []
 	                swiped = False
 	                continue
 	            else:
 	                break   # we got it!
-
-	#print "Past Try"
-	#print data
-
+	    #timeout
+	    if time.time() > future:
+	    	label.set("Swipe timed out. Click swipe in again.")
+	    	return -1
 
 	# now we have the binary data from the MagReader! 
 
@@ -235,15 +336,18 @@ def initCardReader(app):
 	info['exp_year'] = track[k+1:k+3]
 	info['exp_month'] = track[k+3:k+5]
 
-	#print "Bank card info: ", info
-	app.currentUIN = info['account_number'][4:-3]
-	app.responseText.set("UIN: %s" % app.currentUIN)
+	UIN = info['account_number'][4:-3]
+	label.set("Successful swipe.")
+	return UIN
 
 def main():
-
 	root = Tk()
 	root.geometry("500x300+300+300")
-	app = TattGui(root)
+	
+	#Change for production
+	domainAndPort = 'localhost:8000'
+
+	app = TattGui(root, domainAndPort)
 	root.mainloop()
 
 if __name__ == '__main__':
