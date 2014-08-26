@@ -1,0 +1,5 @@
+## The following requirements were added by pip --freeze:
+Django==1.4.5
+django-crispy-forms==1.2.3
+qrcode==2.5.1
+Pillow==2.2.1
