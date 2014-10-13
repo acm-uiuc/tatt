@@ -7,8 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
  
 ADMINS = (
-    ('Drew Cross', 'mstngdrew212@gmail.com'),
-    ('Eric Parsons', 'ecpcorran@gmail.com'),
+    ('Eric Rosenberg', 'ehrosen2@illinois.edu'),
 )
 
 MANAGERS = ADMINS
